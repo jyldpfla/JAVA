@@ -1,10 +1,10 @@
-// 반복
+// 반복문 while
 
 public class Loop1 {
 	public static void main(String[] args) {
 		boolean con = false;
 		
-		int i = 0; // 변수지정
+		int i = 0; // 변수 선언
 		while (i < 5) {
 			System.out.println("반복됩니다.");
 			i++;

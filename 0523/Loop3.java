@@ -7,7 +7,7 @@ public class Loop3 {
 		while (i >= 0 && i <= 100) {
 			System.out.println((i % 3 == 0 || i % 7 == 0) ? i : "");
 			i++;
-		}
+		} // i >= 0 부터 시작하므로 필요 x
 		*/
 	
 		/* 답

@@ -48,6 +48,22 @@ public class SumAvg {
 
 		System.out.printf("홀수의 합: %d,\n평균: %d", sum3, sum3 / a);
 		
+		/*
+		int sumEven = 0;
+		int sumOdd = 0;
+		int countEven = 0;
+		int countOdd = 0;
+		for (int i = 0; i < count; i ++) {
+			int num = scan.nextInt();
+			if (num % 2 == 0) {
+				sumEven += num;
+				countEven++;
+			} else {
+				sumOdd += num;
+				countOdd++;
+			}
+		}
+		*/
 		
 	}
 }

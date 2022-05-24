@@ -6,6 +6,7 @@ public class SumForUser {
 		// 합
 		Scanner scan = new Scanner(System.in);
 		
+		// 입력
 		System.out.print("정수 범위 시작: ");
 		int a = scan.nextInt();
 		System.out.print("정수 범위 끝: ");
@@ -15,6 +16,8 @@ public class SumForUser {
 		for (;a <= b; a++) {
 			sum += a ;
 		}
+		
+		// 출력
 		System.out.println(sum);
 	}
 } 

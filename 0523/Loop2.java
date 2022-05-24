@@ -4,12 +4,13 @@
 public class Loop2 {
 	public static void main(String[] args) {
 		/*
-		int i = 0;
+		int i = 1;
 		while (i <= 10000) {
 			System.out.println(i);
 			i++;
 		}
 		*/
+		
 		
 		// 20 ~ 29까지 출력하기
 		/*
@@ -46,7 +47,7 @@ public class Loop2 {
 		}
 		*/
 		
-		//100보다 작은 3의 배수를 출력해보세요.
+		//0 ~ 100미만의 정수 중 3의 배수를 출력해보세요.
 		/*
 		int l = 0;
 		while(l < 100) {
@@ -68,7 +69,7 @@ public class Loop2 {
 		while (q < 8) {
 			System.out.println( (q % 2 == 0) ? "☆" : "★" );
 			q++;
-		}
+		} //홀짝을 이용해서 조건에 맞게 출력
 	} 
 	
 } 
