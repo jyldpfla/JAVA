@@ -26,5 +26,28 @@ public class Password {
 				count++;
 			}
 		}
+		
+		/* 쌤 답
+		String password = "1q2w3e";
+		String userInput;
+		boolean isOk = false;
+		int count = 3;
+		
+		do {
+			System.out.println("비밀번호를 입력하세요");
+			userInput = scan.nextLine();
+			count--;
+			System.out.println("현재 카운트값 확인: " + count);
+			// 비밀번호가 틀렸고 아직 기회가 남아있으면
+			isOk = password.equals(userInput);
+		} while (!password.equals(userInput) && count > 0);
+		
+		if (isOk) {
+			System.out.println("통과~~");
+		} else {
+			System.out.println("비밀번호를 확인해주세영")
+		}
+		*/ 
 	}
 }
+
