@@ -5,7 +5,7 @@ public class TestMethod2 {
 		int b = 20;
 		int sum = a + b;
 		
-		return sum;
+		return sum; // 30이라는 값을 가지고 메인메소드로 돌아감, 이 값에 대한 타입을 미리 정의(static) 옆에
 	}
 	
 	// pi 메소드 { 3.14 실수값을 반환하는 메소드 }

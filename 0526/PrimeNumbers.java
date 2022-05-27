@@ -11,7 +11,7 @@ public class PrimeNumbers {
 			return true;
 		} else {
 			return false;
-		}
+		} //else 없으면 return값이 없는 경우가 있어서 compiler가 error 냄
 	}
 	
 	
