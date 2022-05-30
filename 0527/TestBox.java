@@ -5,14 +5,14 @@ public class TestBox {
 		// none.width = 10; // 없음을 참조하고 있으므로 가로가 없어서 실행 중 error 남
 		Box box1; // class가 하나의 type으로 사용, 참조형 변수가 선언됨
 		// Box 파일에 만든 Box class 이용
-		box1 = new Box(); // 박스 인스턴스
+		box1 = new Box(); // 박스 인스턴스를 참조할 것이다.
 		box1.width = 3;
 		box1.length = 3;
 		box1.height = 3;
 		
 		// Sytsem.out.println(box1.color);
 		
-		Box box2 = new Box();
+		Box box2 = new Box(); // 인스턴스화:
 		box2.width = 10;
 		box2.length = 10;
 		box2.height = 10;

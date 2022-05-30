@@ -22,7 +22,24 @@ public class Test {
 		date1.choice = scan.nextInt();
 		date1.printAll2();
 		
+		/*쌤 답
+		d.printYMD();
+		d.printMDY();
+		
+		String year = d.getYeartwoDigit();
+		System.out.print(year);
+		
+		d.printYMD();
+		*/
+		
 		Movie movie1 = new Movie();
+		Movie movie2 = new Movie(
+							"새영화"
+							, 7.5
+							, "새감독"
+							, 2022); 
+		// 생성자(constructor)
+		// 기본 생성자
 		System.out.println("영화의 제목, 평점(5점 기준), 감독, 연도를 입력하세요.");
 		scan.nextLine();
 		movie1.title2 = scan.nextLine();
@@ -31,5 +48,9 @@ public class Test {
 		movie1.year2 = scan.nextInt();
 		movie1.printAll3();
 		
+		System.out.println(Movie.title22);
+		System.out.println(Movie.score);
+		System.out.println(Movie.director22);
+		System.out.println(Movie.publishYear);
 	}
 }

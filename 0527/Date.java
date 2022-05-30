@@ -19,4 +19,16 @@ public class Date {
 		} // %d 사이에 2넣으면 2칸차지, 0 넣으면 1자리수면 앞에 0 도출
 		System.out.println();
 	}
+	/* 답
+	void printYMD() {
+		System.out.printf("%d-%02d-%02d\n", year, month, day);
+	}
+	void print MDY() {
+		System.out.printf("%02d/%02d/%s\n", month, day, year % 100);
+	} // 출력을 하므로 void
+	
+	String getYearTwoDigit() {
+		return String.format("%02d", year % 100);
+	} // string값을 우리가 원하는 형식으로 반환 해주는 것이므로 string
+	*/
 }
