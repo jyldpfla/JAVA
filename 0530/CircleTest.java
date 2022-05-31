@@ -18,7 +18,7 @@ class Point {
 class Circle {
 	private int radius = 0;
 	private Point center; // Point 참조 변수가 필드로 선언되어 있다.
-	// has - a 관계 : class를 field로 가지는 관계
+	// has - a 관계 : class를 field로 가지는 관계, 객체 안에 객체가 field로 표현되는 형태
 	
 	// 생성자
 	public Circle(Point p, int r) {

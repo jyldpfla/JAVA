@@ -1,3 +1,4 @@
+// 쌤 답
 public class Movie {
 	String title;
 	double score;
