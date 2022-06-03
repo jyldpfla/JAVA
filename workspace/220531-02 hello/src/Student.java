@@ -1,12 +1,11 @@
+import java.util.Scanner;
 
 public class Student {
 	private String name;
-	private int kor;
-	private int eng;
-	private int math;
+	private int kor, eng, math;
+	String username;
 
 	public Student(String name, int kor, int eng, int math) {
-		super();
 		this.name = name;
 		this.kor = kor;
 		this.eng = eng;
@@ -16,8 +15,7 @@ public class Student {
 	public Student(String name) {
 		this.name = name;
 	}
-	// 이름만 변경할 수 있는 생성자, 기본값 없으므로 int값 나머지 0으로 나옴
-
+	
 	public String getName() {
 		return name;
 	}
@@ -49,12 +47,57 @@ public class Student {
 	public void setMath(int math) {
 		this.math = math;
 	}
+	
+	// 다른 학생과의 값 비교해서 같거나 크면 left쪽이 이겨서 boolean으로 출력
+	public boolean compare(Student other) {
+		return this.getAverage() >= other.getAverage();
+	}
 
 	public int getAverage() {
-		return getSum() / 3;
+		return (kor + eng + math) / 3;
 	}
 
-	public int getSum() {
-		return (kor + eng + math);
+	// 메뉴바
+	public void getAll() {
+		Scanner choice = new Scanner(System.in);
+		int choice1 = 0;
+		while (choice1 != 5) {
+			System.out.println("1. 학생 정보 등록\n2.학생 이름 목록\n3. 반 학생 평균 \n4. 반 1등 학생 \n5. 프로그램 종료");
+			choice1 = choice.nextInt();
+			if (choice1 == 1) {
+				getUser();
+			} else {
+				break;
+			}
+		} // do while은 결과에 상관없이 무조건 한 번은 실행됨
 	}
+
+	// 콘솔 입출력을 위한 학생 정보 받아오기
+	public void getUser() {
+		for (int a = 0; a < 3; ) {
+			System.out.println("학생 정보를 기록하시겠습니까? 1. yes 2. no");
+			Scanner answer1 = new Scanner(System.in);
+			int answer = answer1.nextInt();
+			if (answer == 1) {
+				answer1.nextLine();
+				System.out.println("학생 이름을 입력하세요: ");
+				String username = answer1.nextLine();
+				System.out.println("국어 성적을 입력하세요: ");
+				int userkor = answer1.nextInt();
+				System.out.println("영어 성적을 입력하세요: ");
+				int usereng = answer1.nextInt();
+				System.out.println("수학 성적을 입력하세요: ");
+				int usermath = answer1.nextInt();
+				if(a == 0) {
+					
+				}
+				
+				a += 1;
+			} else {
+				System.out.println("3명의 정보를 입력하여야 합니다.");
+			}
+		}
+	}
+	
+	
 }
