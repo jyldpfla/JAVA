@@ -14,8 +14,8 @@ public class Main3 {
 //		myArr[0] = 1.02;
 //		myArr[1] = 0.03;
 //		myArr[2] = 4.0;
-//		double[] myArr = new double[] {1.02, 0.03, 4.0};
-		double[] myArr = {1.02, 0.03, 4.0};
+//		double[] myArr = new double[] {1.02, 0.03, 4.0}; // 표현방법 1
+		double[] myArr = {1.02, 0.03, 4.0}; // 표현방법 2
 		
 		System.out.println(myArr); // 원소값을 확인하는 것이 아닌 객체를 부른 것이므로 값 요상하게 나옴
 		

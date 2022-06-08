@@ -8,6 +8,7 @@ public class ArrayTest1 {
 		Scanner scan = new Scanner(System.in);
 		
 		int[] scores = new int[STUDENTS];
+		// 길이값을 변수로 넣어주면 길이값 조정 가능
 		
 		for (int i = 0; i < STUDENTS; i++) {
 			System.out.print("성적을 입력하시오:");

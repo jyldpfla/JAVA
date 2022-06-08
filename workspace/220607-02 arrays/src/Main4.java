@@ -32,6 +32,7 @@ public class Main4 {
 		char[] hello = {'H', 'e', 'l', 'l', 'o'}; // 문자의 배열
 		// char 배열 문자열로 반환해주는 메소드
 		String result = Arrays.toString(hello);
+		// Arrays: util package 안에 있는 클래스인데 array와 관련된 메소드를 담고 있음
 		System.out.println(result);
 //		printArray(hello);
 //		String result = arraytoString(hello);

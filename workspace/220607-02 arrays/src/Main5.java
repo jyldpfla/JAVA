@@ -24,18 +24,61 @@ public class Main5 {
 					System.out.print(fiveBox[j]);
 				}
 			}
+			System.out.println();
 		}
 		
+		// 1번 쌤 답
+//		Scanner scan = new Scanner(System.in);
+//		int[] arr = new int[5];
+//		for (int i = 0; i < arr.length; i++) {
+//			arr[i] = scan.nextInt();
+//		}
+//		
+//		for (int i = arr.length - 1; i >= 0; i--) {
+//			System.out.println(arr[i]);
+//		}
+		
+		
 		// 2번
-		int size;
+		int size = 0;
 		int[] minusBox = new int[size];
 		
 		Scanner scan = new Scanner(System.in);
-		int i;
+		int i = 0;
 		do {
 			System.out.println("정수를 입력하세요: ");
 			minusBox[i] = scan.nextInt();
+			i++;
+			size = i + 1;
 		} while(i >= 0);
+		
+		System.out.println(minusBox[i]);
+		
+		// 2번 쌤 답
+//		Scanner scan = new Scanner(System.in);
+//		final int MAX_LENGTH = 5;
+//		int[] arr = new int[MAX_LENGTH];
+//
+//		int i = 0;
+//
+//		while (true) {
+//			int n = scan.nextInt();
+//			if (n <= 0) {
+//				break;
+//			}
+//			arr[i] = n;
+//
+//			i++;
+//
+//			if (i == MAX_LENGTH) {
+//				i = 0;
+//			}
+//		}
+//		scan.close();
+//		for (i = 0; i < MAX_LENGTH; i++) {
+//			System.out.println(arr[i]);
+//		}
+
 		
 	}
 }

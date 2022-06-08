@@ -6,6 +6,9 @@ public class Main {
 		// new로 봤을 때 값을 참조하고 있음을 알  수 있음
 		// int[4] : int형 변수를 4개를 담은 배열을 참조
 		
+		//int[] test = null
+		// 참조를 해야하는데 null을 참조하도록 초기화 시켰기  때문에 가능
+		
 		System.out.println("배열의 길이값: " + aBox.length);
 		// 배열의 길이를 보고 싶을 때 참조 변수.length로 호출
 		// aBox.length = 10; // java 배열은 초기화시 정해둔 길이값은 상수(final field)이므로 변경 불가
@@ -20,4 +23,4 @@ public class Main {
 		System.out.println(aBox[2]);
 		System.out.println(aBox[3]);
 	}
-}
+} 
