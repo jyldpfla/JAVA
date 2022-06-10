@@ -30,7 +30,7 @@ public class Main {
 			k[i] = j;
 	}
 	
-	// 가격 비교 메소드(오름차순)
+	// 가격 비교 메소드(내림차순)
 	public static void comparePrice(Book[] a) { // 배열형 파라미터 1개 받아오기
 		int[] su = new int[a.length];  // a의 길이와 같은 배열, 가격 간 비교 시 최고 금액으로 나옷 횟수를 값으로 저장
 		
