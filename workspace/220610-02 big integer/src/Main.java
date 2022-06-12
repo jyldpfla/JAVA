@@ -15,7 +15,7 @@ public class Main {
 //		// 새로운 인스턴스를 만들어서 값을 출력한 것
 //		System.out.println(value1); // 자신의 상태값을 변화하지 않음, 상수와 비슷하다고 생각
 //		
-//		// 오타를 낼 수 있는 근사값 double, float
+//		// 오차를 낼 수 있는 근사값 double, float
 //		// BigDeciaml : 정확한 소수점을 나타낼 수 있다는 점에서 차이
 //		BigDecimal dec = new BigDecimal("0.123456789");
 //		System.out.println(dec);
