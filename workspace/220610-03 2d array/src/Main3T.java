@@ -17,8 +17,8 @@ public class Main3T {
 
 	public static void print2D(int[][] array) {
 		for (int i = 0; i < array.length; i++) {
-			System.out.print(Arrays.toString(array[i]));
-			System.out.println(sum(array[i]));
+			System.out.print(Arrays.toString(array[i])); // 각 행 출력
+			System.out.println(sum(array[i])); // 합 반환 출력
 		}
 		for (int i = 0; i < array[0].length; i++) {
 			System.out.print(sum(col(array, i)) + " ");
@@ -31,7 +31,7 @@ public class Main3T {
 		for (int i = 0; i < array.length; i++) {
 			sum += array[i];
 		}
-		return sum;
+		return sum; // 합을 구하는 메소드
 	}
 
 	public static int[] col(int[][] array, int col) {

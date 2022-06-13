@@ -8,9 +8,9 @@ public class Main2 {
 		// 4 16 ...
 
 		int[][] arr = { { 2, 4, 8, 16, 32 }, { 3, 9, 27, 81, 243 }, { 4, 16, 64, 256, 1024 },
-				{ 5, 25, 125, 625, 3125 } };
+				{ 5, 25, 125, 625, 3125 } }; // int 배열을 각각 참조하는 배열을 참조함
 
-		int[][] arr2 = new int[4][5];
+		int[][] arr2 = new int[4][5]; // new로 새로 만들어진 instance 참조
 		for (int i = 0; i < arr2.length; i++) {
 			int n = 1;
 			for (int j = 0; j < arr2[i].length; j++) {
@@ -19,12 +19,12 @@ public class Main2 {
 			}
 		}
 		
-		System.out.println(Arrays.deepToString(arr)); 
+		System.out.println(Arrays.deepToString(arr));  // 다중 차원의 원소값 가져올 수 있음
 		System.out.println(Arrays.deepToString(arr2)); // 차원이 여러개 있어도 값 반환 가능
 		
 		System.out.println(arr == arr2);
 		System.out.println(Arrays.equals(arr, arr2)); // 참조가 다르므로 같지 않다고 나옴, 1차원일 때 사용
-		System.out.println(Arrays.deepEquals(arr, arr2));
+		System.out.println(Arrays.deepEquals(arr, arr2)); // 다중 차원의 원소값이 같은지를 비교할 때
 		// deepEquals는 참조가 달라도 배열의 원소와 길이가 같은지를 비교하므로 true -> 다차원일 때는 deep 사용
 	}
 }
