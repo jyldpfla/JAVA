@@ -12,6 +12,17 @@ class Dog extends Animal {
 	} // 부모에 있던 것을 그대로 작성
 }
 
+class Poodle extends Dog {
+	@Override
+	public void sound() {
+		System.out.println("얼얼얼");
+	}
+	@Override
+	public String toString() { // 부모 클래스의 동작 재정의
+		return "강아지입니다";
+	}
+}
+
 class Cat extends Animal {
 	public void sound() {
 		System.out.println("냐옹"); // 하나의 동작을 새롭게 써내려간 것
