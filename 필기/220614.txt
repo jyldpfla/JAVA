@@ -9,7 +9,7 @@
 ▶ 잡지로 형변환 했을 때는 잡지의 특성을 다 사용 가능
 ▶ 다운캐스팅할 때는 더 작은 집합이 되므로, 책이 잡지가 맞는지 확인해야함
 -> instanceof
-	ex. if(b instanceof Magazine){};
+	ex. if(book instanceof Magazine){};
 
 ● 객체의 다형성
 : 위 상향 / 하향 형변환처럼 객체가 다양한 형태를 띠는 것
@@ -23,7 +23,7 @@
 
 ● equals() 메소드
 : 두 개의 객체를 비교하여 같으면 true를 반환
-- Object 제공 equals는 동등연산자인 ==를 이용 -> 기초 자료형의 경우 올바른 결과, 객체에 대해서는 동일 한 객체의 주소가 동일한지 검사
+- Object 제공 equals는 동등연산자인 ==를 이용 -> 기초 자료형의 경우 올바른 결과, 객체에 대해서는 동일한 객체의 주소가 동일한지 검사
 
 => equals 메소드 재정의해야함
 - ex. public boolean equals(Object obj) {
