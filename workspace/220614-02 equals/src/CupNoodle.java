@@ -43,7 +43,7 @@ public class CupNoodle {
 			return false;
 		}
 		
-		CupNoodle other = (CupNoodle) obj;
+		CupNoodle other = (CupNoodle) obj; // 이름, 제조사만 비교
 		if (name == null) {
 			if (other.name != null)
 				return false;
