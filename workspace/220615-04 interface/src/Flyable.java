@@ -20,7 +20,7 @@ class Penguin extends Bird{}
 class FlyingFish extends Animal implements Flyable { // 상속있을 때의 implement
 	@Override
 	public void fly() {
-		System.out.println("날치가 물 위로 남");
+		System.out.println("날치가 물 위로 낢");
 	}
 }
 

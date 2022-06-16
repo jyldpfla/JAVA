@@ -30,7 +30,7 @@ class Student implements Comparable {
 		return gpa;
 	}
 
-	public int compareTo(Object obj) {
+	public int compareTo(Object obj) { // sort 사용할 수 있도록 comparTo로 기준 설정
 		Student other = (Student) obj;
 		if (gpa < other.gpa)
 			return -1;

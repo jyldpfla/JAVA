@@ -21,7 +21,7 @@ public class Management extends Member {
 			System.out.println("회원의 몸무게를 입력하세요");
 			c = scan.nextDouble();
 			scan.nextLine();
-			d = {a, b, c);
+			d = (a, b, c);
 			arr[i] = d;
 		}
 		return arr;
