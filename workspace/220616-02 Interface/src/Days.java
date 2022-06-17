@@ -16,7 +16,7 @@ interface MyInterface {
 	
 	public static void myStaticMethod() {
 		
-	}
+	} // 호출시 MyInterface.myStaticMethod() 이렇게 호출
 	
 	public static int sum(int a, int b) {
 		return a + b;
