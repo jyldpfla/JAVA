@@ -1,4 +1,4 @@
-물 * 2
+
 전 날 eclipse marketplace에서 다운받은 거 marketplace에서 installed - uninstall 선택
 help - install new software에 위 입력창에 https://download.eclipse.org/windowbuilder/1.9.7/ 복붙 enter
 설치후 restart
