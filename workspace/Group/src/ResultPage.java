@@ -1,4 +1,4 @@
-package result;
+package Group;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +20,8 @@ import java.awt.Font;
 public class ResultPage extends JFrame {
 	// 6/30 : 넘겨받는 배열 타입에 따라 메소드 전반적 변경
 	// 6/31 : 보너스 번호 추첨, 등수 출력, 버튼 마우스오버창
-	// 지금 할 일 : 같으면 번호 색 변경 메소드 만들기
+	// 지금 할 일 : 1.금액 출력 메소드 만들기
+	//			2. 같으면 번호 색 변경 메소드 만들기
 
 	Random random = new Random();
 	// 중복 없는 당첨번호 set
@@ -39,7 +40,17 @@ public class ResultPage extends JFrame {
 	String[] same;
 	// 같음, 다름 배열 넣은 걸 넣을 배열
 	String[][] same1 = new String[5][];
+	// 보너스 값 출력 위한 변수
 	int bonus = 0;
+	// 등수 출력 위한 배열
+	String[] ranking = new String[5];
+	// 전체 판매액 담을 정수 타입
+	int totalMoney = 300000000;
+	// 총 당첨 금액 담을 정수 타입
+	int winningTotal = 0;
+	///////////////연습 값 담을  set/////////////////////////
+	Set<Integer> practice = new HashSet<>();
+	///////////////연습 값 담을  set end/////////////////////////
 
 	private JPanel pnl;
 	private JButton btn;
@@ -58,10 +69,14 @@ public class ResultPage extends JFrame {
 	public ResultPage() {
 		getNumber(lotto, bonus);
 		getNumber3();
+
+//		getNumberPractice();
 		comparingList();
 		comparingBonus();
 		rank();
-
+		getMoney();
+		
+		
 		pnl = new JPanel();
 		JPanel pnlA = new JPanel();
 		pnlA.setBounds(0, 0, 784, 138);
@@ -103,6 +118,10 @@ public class ResultPage extends JFrame {
 		JLabel lottoB = new JLabel(buyLottoNum.toString());
 		pnlC.add(lottoB);
 //		}
+		JLabel lottoResultL = new JLabel("당첨 여부");
+		pnlC.add(lottoResultL);
+		JLabel lottoResult = new JLabel(Arrays.toString(ranking));
+		pnlC.add(lottoResult);
 		lbl3.setBounds(0, 0, 65, 40);
 
 		JLabel price = new JLabel("금액 = 300,000,000원");
@@ -134,6 +153,10 @@ public class ResultPage extends JFrame {
 				set.add(r);
 			}
 		}
+		// 리스트로 변환 후 정렬
+		list = new ArrayList<>(lotto);
+		Collections.sort(list);
+		System.out.println("당첨 번호: " + list);
 		
 
 		// 보너스 값 출력
@@ -145,7 +168,7 @@ public class ResultPage extends JFrame {
 		System.out.println("보너스 값: " + i);
 	}
 
-	// 내가 고른 번호 만드는 메소드 메소드로 만들기
+	///////////////////////////// 내가 고른 번호 만드는 메소드 (배열 예시)/////////////////////////////////////////////
 	public void getNumber2(int[] a) {
 		// 배열일 때
 		for (int i = 0; i <= 5; i++) {
@@ -154,7 +177,10 @@ public class ResultPage extends JFrame {
 
 		Arrays.sort(a);
 	}
-
+	///////////////////////////// 내가 고른 번호 만드는 메소드 end /////////////////////////////////////////////
+	
+	
+	// 다시 켜야돼!!
 	// list 배열에 6개의 값 담기
 	public void getNumber3() {
 		for (int j = 0; j < 5; j++) {
@@ -170,14 +196,28 @@ public class ResultPage extends JFrame {
 //			System.out.println(buyLottoNum);
 		}
 	}
+	
+//	///////////////////////// 연습 list 배열에 6개의 값 담기 /////////////////////////
+//	public void getNumberPractice() {
+//		for (int j = 0; j < 4; j++) {
+//			buyLottoNum1 = new ArrayList<>();
+//			for (int i = 0; i <= 5; i++) {
+//				buyLottoNum1.add(random.nextInt(45) + 1);
+//				Collections.sort(buyLottoNum1);
+//			}
+//
+////			System.out.println(buyLottoNum1);
+//			// 이중배열에 list배열 담기
+//			buyLottoNum.add(buyLottoNum1);
+////			System.out.println(buyLottoNum);
+//		}
+//		buyLottoNum.add(list);
+//		System.out.println("연습할 이중 배열 출력" + buyLottoNum);
+//	}
+//	///////////////////////// 연습 list 배열에 6개의 값 담기 end/////////////////////////
 
 	// 이중리스트배열과 리스트 비교
 	public void comparingList() {
-		// 리스트로 변환 후 정렬
-		list = new ArrayList<>(lotto);
-		Collections.sort(list);
-		System.out.println("당첨 번호: " + list);
-
 		// 내가 선택한 번호 출력
 		System.out.println("내가 선택한 번호: " + buyLottoNum);
 
@@ -194,16 +234,15 @@ public class ResultPage extends JFrame {
 				for (int k = 0; k < list.size(); k++) {
 					b = list.get(k);
 					if (a.equals(b)) {
+						count = 0; // count 값 이해하기
 //						System.out.println("같음");
 						same[i] = "같음";
-//						buyLottoNum1.set(i, 200);
 					} else {
 						count++;
 					}
 					if (count == 6) {
 //						System.out.println("다름");
 						same[i] = "다름";
-//						buyLottoNum1.indexOf(i).set(i, 400);
 						count = 0;
 					}
 				}
@@ -236,35 +275,70 @@ public class ResultPage extends JFrame {
 					countB++;
 				}
 			}
-			System.out.println(countD);
-			System.out.println(countB);
-			switch(countD) {
-			case 0 : 
-				if(countB == 0) { // 같음이 6개라면
-					  System.out.println("1등");
-				} else {
-					System.out.println("2등");
+			System.out.println((j + 1) + "번째 추첨 다름 갯수: " + countD);
+			System.out.println((j + 1) + "번째 추첨 보너스번호 당첨 여부(1-당첨, 0-당첨 x): " + countB);
+			for(int i = 0; i < ranking.length; i++) {
+				switch(countD) {
+				case 0 : 
+					if(countB == 0) { // 같음이 6개라면
+						  ranking[i] = "1등";
+						  System.out.println(ranking);
+					} else {
+						 ranking[i] = "2등";
+					}
+					break;
+				case 1 :
+					 ranking[i] = "3등";
+					break;
+				case 2 :
+					 ranking[i] = "4등";
+					break;
+				case 3 :
+					 ranking[i] = "5등";
+					break;
+				default :
+					 ranking[i] = "낙첨";
+					break;
 				}
-				break;
-			case 1 :
-				System.out.println("3등");
-				break;
-			case 2 :
-				System.out.println("4등");
-				break;
-			case 3 :
-				System.out.println("5등");
-				break;
-			default :
-				System.out.println("아쉬워요 메롱");
-				break;
 			}
 			countD = 0;
+			countB = 0;
 		}
+		System.out.println("당첨 여부: " + Arrays.toString(ranking));
+	}
+
+	// 금액 출력 메소드
+	public void getMoney() {
+		int winningMoney;
+		for(int i = 0; i < buyLottoNum.size(); i++) {
+			switch(ranking[i]) {
+			case "4등" :
+				winningMoney = totalMoney - 50000;
+				System.out.println("당첨 금액: " + winningMoney);
+				totalMoney -= winningMoney;
+				winningTotal += winningMoney;
+				break;
+			case "5등" :
+				winningMoney = totalMoney - 5000;
+				System.out.println("당첨 금액: " + winningMoney);
+				totalMoney -= winningMoney;
+				winningTotal += winningMoney;
+				break;
+			case "1등" :
+				winningMoney = (totalMoney - winningTotal) / 75; 
+				System.out.println("당첨 금액: " + winningMoney);
+			default :
+				winningMoney = 0;
+				System.out.println("당첨 금액: " + winningMoney);
+			}
+			System.out.println("총 금액 : " + totalMoney);
+		}
+		System.out.println("총 금액 : " + totalMoney);
+		System.out.println("현재 당첨  금액: " + winningTotal);
 	}
 	
 
-	// 배열과 set 비교
+	/////////////////////////////// 배열과 set 비교 (배열 예시)/////////////////////////////////////////
 	public void comparing(int[] a) {
 		int count = 0;
 		for (int i = 0; i < a.length; i++) {
@@ -290,6 +364,7 @@ public class ResultPage extends JFrame {
 
 		}
 	}
+	/////////////////////////////// 배열과 set 비교 (배열 예시) end/////////////////////////////////////////
 
 	public static void main(String[] args) {
 //		ResultPage re = new ResultPage().setVisible(true);
@@ -303,3 +378,4 @@ public class ResultPage extends JFrame {
 //		re.comparing(re.a);
 	}
 }
+
