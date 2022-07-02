@@ -1,3 +1,5 @@
+package result;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +20,7 @@ import java.awt.Font;
 public class ResultPage extends JFrame {
 	// 6/30 : 넘겨받는 배열 타입에 따라 메소드 전반적 변경
 	// 6/31 : 보너스 번호 추첨, 등수 출력, 버튼 마우스오버창
-	// 지금 할 일 : 비교 메소드를 숫자 배열에 적용해서 색상 변경
+	// 지금 할 일 : 같으면 번호 색 변경 메소드 만들기
 
 	Random random = new Random();
 	// 중복 없는 당첨번호 set
@@ -58,6 +60,7 @@ public class ResultPage extends JFrame {
 		getNumber3();
 		comparingList();
 		comparingBonus();
+		rank();
 
 		pnl = new JPanel();
 		JPanel pnlA = new JPanel();
@@ -193,13 +196,14 @@ public class ResultPage extends JFrame {
 					if (a.equals(b)) {
 //						System.out.println("같음");
 						same[i] = "같음";
-						buyLottoNum1.set(i, 200);
+//						buyLottoNum1.set(i, 200);
 					} else {
 						count++;
 					}
 					if (count == 6) {
 //						System.out.println("다름");
 						same[i] = "다름";
+//						buyLottoNum1.indexOf(i).set(i, 400);
 						count = 0;
 					}
 				}
@@ -219,6 +223,46 @@ public class ResultPage extends JFrame {
 			} 
 		}
 	} 
+	
+	// 등수 추첨 메소드
+	public void rank() {
+		int countD = 0; // 다름 개수 체크
+		int countB = 0; // 보너스 번호 당첨 여부
+		for(int j = 0; j < same1.length; j++) {
+			for(int i = 0; i < same.length; i++) {
+				if(same1[j][i].equals("다름")) {
+					countD++;
+				}  else if(same1[j][i].equals("보너스 번호 당첨!")) {
+					countB++;
+				}
+			}
+			System.out.println(countD);
+			System.out.println(countB);
+			switch(countD) {
+			case 0 : 
+				if(countB == 0) { // 같음이 6개라면
+					  System.out.println("1등");
+				} else {
+					System.out.println("2등");
+				}
+				break;
+			case 1 :
+				System.out.println("3등");
+				break;
+			case 2 :
+				System.out.println("4등");
+				break;
+			case 3 :
+				System.out.println("5등");
+				break;
+			default :
+				System.out.println("아쉬워요 메롱");
+				break;
+			}
+			countD = 0;
+		}
+	}
+	
 
 	// 배열과 set 비교
 	public void comparing(int[] a) {
