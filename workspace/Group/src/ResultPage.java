@@ -1,5 +1,3 @@
-package Group;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,22 +7,35 @@ import java.util.Random;
 import java.util.Set;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.ToolTipManager;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.net.URL;
 
 public class ResultPage extends JFrame {
 	// 6/30 : 넘겨받는 배열 타입에 따라 메소드 전반적 변경
 	// 6/31 : 보너스 번호 추첨, 등수 출력, 버튼 마우스오버창
 	// 7/1 : 같음, 다름 여부 메소드 수정
 	// 7/2 : 등수 출력 메소드 완성, 변수명 변경
+	// 7/4 : 당첨 금액 메소드 완성
+	
 	// 할일
 	// 패널 쪽 이름 변경
-	// 1. 금액 출력 메소드 만들기
+	// 레이아웃 짜기
+	// 1. 돌아갈 때 사용자 구입 로또 배열과 당첨번호 리셋
 	// 2. 같으면 번호 색 변경 메소드 만들기
 
 	// Random 인스턴스 생성
@@ -44,24 +55,27 @@ public class ResultPage extends JFrame {
 	List<List<String>> sameList = new ArrayList<>();
 
 	// 등수 출력 위한 배열
-	String[] ranking;
+	List<String> ranking;
 	// 전체 판매액 담을 정수 타입
 	int totalMoney = 300000000;
 	// 총 당첨 금액 담을 정수 타입
 	int winningTotal = 0;
-	/////////////// 연습 값 담을 set/////////////////////////
+/////////////////// 연습 값 담을 set/////////////////////////
 	Set<Integer> practice = new HashSet<>();
-	/////////////// 연습 값 담을 set end/////////////////////////
+/////////////// 연습 값 담을 set end/////////////////////////
+	
+	JLabel[][] lotto = new JLabel[5][8];
+	
 
 	private JPanel pnl;
-	private JButton btn;
+	private JButton nextBtn;
 
 	public JPanel getPnl() {
 		return pnl;
 	}
 
 	public JButton getNextBtn() {
-		return btn;
+		return nextBtn;
 	}
 
 	// Result 화면 생성
@@ -76,67 +90,140 @@ public class ResultPage extends JFrame {
 		getMoney();
 
 		pnl = new JPanel();
-		JPanel pnlA = new JPanel();
-		pnlA.setBounds(0, 0, 784, 138);
-		JLabel lbl1 = new JLabel("당첨 번호");
-		JPanel pnlB = new JPanel();
-		pnlB.setBounds(0, 138, 784, 138);
-		JLabel lbl2 = new JLabel("일치 여부");
-		JPanel pnlC = new JPanel();
-		pnlC.setBounds(0, 276, 784, 138);
-		JLabel lbl3 = new JLabel("추첨 번호");
 
-		pnlA.add(lbl1);
-		pnlB.add(lbl2);
-		pnlC.add(lbl3);
-		pnl.setLayout(null);
-		pnl.add(pnlA);
-		for (int i = 0; i < lottoNum.size(); i++) {
-			JLabel lottoA = new JLabel(String.valueOf(lottoNum.get(i)));
-			pnlA.add(lottoA);
+		
+//		//레이아웃 짜기
+//		GridBagLayout gridBag = new GridBagLayout();
+//		GridBagConstraints constraints = new GridBagConstraints(); 
+//		pnl.setLayout(gridBag);
+//		constraints.fill = GridBagConstraints.BOTH; // 전체 채우기, 가로/세로  방향으로  모두  확장
+
+		JPanel pnlLottoNums = new JPanel();
+		pnlLottoNums.setBounds(0, 0, 784, 138);
+		JLabel lblLottoNums = new JLabel("당첨 번호");
+		JPanel pnlWinning = new JPanel();
+		pnlWinning.setBounds(0, 138, 784, 138);
+		JLabel lblWinning = new JLabel("일치 여부");
+		JPanel pnlBuyNums = new JPanel();
+		pnlBuyNums.setBounds(0, 276, 784, 138);
+		JLabel lblBuyNums = new JLabel("추첨 번호");
+
+		pnlLottoNums.add(lblLottoNums);
+		pnlWinning.add(lblWinning);
+		pnlBuyNums.add(lblBuyNums);
+
+		pnl.add(pnlLottoNums);
+		for (int lottoNumIndex = 0; lottoNumIndex < lottoNum.size(); lottoNumIndex++) {
+			JLabel showLottoNum = new JLabel(String.valueOf(lottoNum.get(lottoNumIndex)));
+			pnlLottoNums.add(showLottoNum);
 		}
 
-		JLabel lbl4 = new JLabel("보너스 번호");
-		pnlA.add(lbl4);
-		JLabel lbl5 = new JLabel(Integer.toString(lottoBonus));
-		pnlA.add(lbl5);
+		JLabel lblBonusNum = new JLabel("보너스 번호");
+		pnlLottoNums.add(lblBonusNum);
+		JLabel showBonusNum = new JLabel(Integer.toString(lottoBonus));
+		pnlLottoNums.add(showBonusNum);
 
-		pnl.add(pnlB);
-		for (int j = 0; j < sameList.size(); j++) {
-			for (int i = 0; i < same.size(); i++) {
-				JLabel same2 = new JLabel(sameList.get(j).get(i));
-				pnlB.add(same2);
+		pnl.add(pnlWinning);
+		for (int samListIndex = 0; samListIndex < sameList.size(); samListIndex++) {
+			for (int sameIndex = 0; sameIndex < same.size(); sameIndex++) {
+				JLabel showWinning = new JLabel(sameList.get(samListIndex).get(sameIndex));
+				pnlWinning.add(showWinning);
 			}
 		}
 
-		pnl.add(pnlC);
+		pnl.add(pnlBuyNums);
 //		for(int i = 0; i < a.length; i++) {
-		JLabel lottoB = new JLabel(buyLottoNumList.toString());
-		pnlC.add(lottoB);
+		JLabel showBuyNums = new JLabel(buyLottoNumList.toString());
+		pnlBuyNums.add(showBuyNums);
 //		}
-		JLabel lottoResultL = new JLabel("당첨 여부");
-		pnlC.add(lottoResultL);
-		JLabel lottoResult = new JLabel(Arrays.toString(ranking));
-		pnlC.add(lottoResult);
-		lbl3.setBounds(0, 0, 65, 40);
-
+		JLabel lblranking = new JLabel("당첨 여부");
+		pnlBuyNums.add(lblranking);
+		JLabel showRanking = new JLabel(ranking.toString());
+		pnlBuyNums.add(showRanking);
+		lblBuyNums.setBounds(0, 0, 65, 40);
+		
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		URL url = ResultPage.class.getClassLoader().getResource("images/critical.png");
+		ImageIcon image = new ImageIcon(kit.getImage(url).getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+		JLabel info = new JLabel(image);
+		// setToolTipText : tooltip에 나올 text 설정
+		info.setToolTipText("<html><p>" + "당첨금 분배 방식 <br> [1등] 6개 번호 일치 : 총 당첨금 중 4등, 5등 금액을 제외한 금액의 75% <br> [2등] 5개 번호 일치 + 보너스 번호 일치 : 총 당첨금 중 4등, 5등 금액을 제외한 금액의 12.5% <br> [3등] 5개 번호 일치 : 총 당첨금 중 4등, 5등 금액을 제외한 금액의 12.5% <br> [4등] 4개 번호 일치 : 50,000원 <br> [5등] 3개 번호 일치: 5,000원 " + "</p></html>");
+		ToolTipManager m =ToolTipManager.sharedInstance(); // 툴팁 여는 시간 조정 위해 객체 생성
+        m.setInitialDelay(0); // 초기 툴팁 출력 지연시간 0초 설정
+		
 		JLabel price = new JLabel("금액 = 300,000,000원");
 		price.setBounds(78, 424, 315, 24);
 		price.setFont(new Font("굴림", Font.PLAIN, 20));
-		btn = new JButton("다음 회차");
-		btn.setBounds(550, 424, 222, 23);
-
+		nextBtn = new JButton("다음 회차");
+		nextBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+//				reset();
+			}
+		});
+		
 		pnl.setBackground(new Color(248, 202, 204));
+		pnl.add(info);
 		pnl.add(price);
-		pnl.add(btn);
+		pnl.add(nextBtn);
 
-		pnlA.setOpaque(false); // 배경 색을 따라가도록
-		pnlB.setOpaque(false);
-		pnlC.setOpaque(false);
+		pnlLottoNums.setOpaque(false); // 배경 색을 따라가도록
+		pnlWinning.setOpaque(false);
+		pnlBuyNums.setOpaque(false);
 		getContentPane().add(pnl);
 
 		setSize(800, 500);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		///////////////////////////////////////////////
+		
+		makefield(lotto);
+		
+		JPanel printResult = new JPanel();
+		add(printResult);
+		
+		for (int i = 0; i < 5; i++) {
+			JPanel a = new JPanel();
+			printResult.add(a);
+			for (int j = 0; j < 8; j++) {
+				a.add(lotto[i][j]);
+			}
+		}
+		
+		/*
+		 * public void makefield(JLabel[][] lotto) {
+		for (int i = 0; i < 5; i++) {
+			lotto[i][0] = new JLabel(String.valueOf(i + 1));
+			lotto[i][1] = new JLabel(String.valueOf("미지정"));
+
+			for (int j = 2; j < 8; j++) {
+				lotto[i][j] = new JLabel(backImg); // 0*6
+				lotto[i][j].setText("");
+				lotto[i][j].setFont(cardFont);
+				lotto[i][j].setForeground(Color.white);
+				lotto[i][j].setHorizontalTextPosition(JLabel.CENTER);
+			}
+
+			lotto[i][8] = new JLabel("붙여넣기");
+			lotto[i][9] = new JLabel("삭제");
+		 * 
+		 */
+		
+		////////////////////////////////////////////
+	}
+	
+	// J라벨 35개 만드는 메소드
+	public void makefield(JLabel[][] lotto) {
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		URL card = ResultPage.class.getClassLoader().getResource("images/card_spade.png");
+		for (int i = 0; i < 5; i++) {
+			lotto[i][0] = new JLabel(String.valueOf(i + 1));
+
+			for (int j = 1; j < 7; j++) {
+				lotto[i][j] = new JLabel(); // 0*6
+			}
+			lotto[i][7] = new JLabel(ranking.get(i));
+		}
 	}
 
 	// 당첨번호 만드는 메소드 메소드로 만들기
@@ -250,7 +337,7 @@ public class ResultPage extends JFrame {
 		int countD = 0; // 다름 개수 체크
 		int countB = 0; // 보너스 번호 당첨 여부
 		// ranking 배열 길이 설정(필드에서 설정시 buyLottoNumList에 값 x라서 0으로 나옴)
-		ranking = new String[buyLottoNumList.size()];
+		ranking = new ArrayList<>();
 //////////////////////////////////////배열일 때 비교 메소드 Start////////////////////////////////////////////
 //		for (int sameArrayIndex = 0; sameArrayIndex < sameList.size(); sameArrayIndex++) {
 //			for (int sameIndex = 0; sameIndex < same.size(); sameIndex++) {
@@ -266,75 +353,81 @@ public class ResultPage extends JFrame {
 		for (int rankingIndex = 0; rankingIndex < sameList.size(); rankingIndex++) {
 			countD = Collections.frequency(sameList.get(rankingIndex), "다름");
 			countB = Collections.frequency(sameList.get(rankingIndex), "보너스 번호 당첨!");
-			
+
 			switch (countD) {
 			case 0:
 				if (countB == 0) { // 같음이 6개라면
-					ranking[rankingIndex] = "1등";
+					ranking.add("1등");
 				} else {
-					ranking[rankingIndex] = "2등";
+					ranking.add("2등");
 				}
 				break;
 			case 1:
-				ranking[rankingIndex] = "3등";
+				ranking.add("3등");
 				break;
 			case 2:
-				ranking[rankingIndex] = "4등";
+				ranking.add("4등");
 				break;
 			case 3:
-				ranking[rankingIndex] = "5등";
+				ranking.add("5등");
 				break;
 			default:
-				ranking[rankingIndex] = "낙첨";
+				ranking.add("낙첨");
 				break;
 			}
 		}
 		countD = 0;
 		countB = 0;
-		System.out.println("당첨 여부: " + Arrays.toString(ranking));
+		System.out.println("당첨 여부: " + ranking.toString());
 	}
 
 	// 금액 출력 메소드
-	
-	// 2. 4, 5등 복권 당첨 금액 저장 - 1등 수령 금액에서 마이너스 - 2등 수령금액에서 1등 금액 마이너스  - 3등 수령금액에서 2등 금액 마이너스
+
+	// 2. 4, 5등 복권 당첨 금액 저장 - 1등 수령 금액에서 마이너스 - 2등 수령금액에서 1등 금액 마이너스 - 3등 수령금액에서 2등
+	// 금액 마이너스
 	// 3. 실 수령 금액(세금 제외)
 	public void getMoney() {
 		int winningMoney;
-		// 1. totalMoney += 복권구매금액
-		totalMoney += 1000 * buyLottoNumList.size();
-		for (int i = 0; i < buyLottoNumList.size(); i++) {
-			switch (ranking[i]) {
-			case "4등":
-				winningMoney = 50000;
-				System.out.println("당첨 금액: " + winningMoney);
-				totalMoney -= winningMoney;
-				winningTotal += winningMoney;
-				break;
-			case "5등":
-				winningMoney = 5000;
-				System.out.println("당첨 금액: " + winningMoney);
-				totalMoney -= winningMoney;
-				winningTotal += winningMoney;
-				break;
-			case "1등":
-				winningMoney = totalMoney / 75;
-				totalMoney -= winningMoney;
-				winningTotal += winningMoney;
-				System.out.println("당첨 금액: " + winningMoney);
-			case "2등":
-				winningMoney = totalMoney / 75;
-				totalMoney -= winningMoney;
-				winningTotal += winningMoney;
-			case
-			default:
-				winningMoney = 0;
-				System.out.println("당첨 금액: " + winningMoney);
-			}
-			System.out.println("총 금액 : " + totalMoney);
-		}
-		System.out.println("총 금액 : " + totalMoney);
-		System.out.println("현재 당첨  금액: " + winningTotal);
+		// 1. totalMoney 당첨분 금액으로 설정하기
+		totalMoney = (totalMoney + (1000 * buyLottoNumList.size())) / 2;
+		System.out.println("당첨분 총 금액: " + totalMoney);
+
+		// 5등 당첨 횟수 -> 1, 2, 3등 계산에서 사용
+		int fifthCount = Collections.frequency(ranking, "5등");
+		// 4등 당첨 횟수
+		int fourthCount = Collections.frequency(ranking, "4등");
+
+		// 4등 , 5등 당첨 시 당첨 금액 메소드
+		winningMoney = fifthCount * 5000 + fourthCount * 50000;
+		totalMoney -= winningMoney;
+		winningTotal += winningMoney;
+		// 1등 당첨 시 당첨 금액 메소드
+		winningMoney = totalMoney / 75 * Collections.frequency(ranking, "1등");
+		totalMoney -= winningMoney;
+		winningTotal += winningMoney;
+		// 2등 당첨 시 당첨 금액 메소드
+		winningMoney = (int) (Double.valueOf(totalMoney) / 12.5 * Collections.frequency(ranking, "2등"));
+		totalMoney -= winningMoney;
+		winningTotal += winningMoney;
+		// 3등 당첨 시 당첨 금액 메소드
+		winningMoney = (int) (Double.valueOf(totalMoney) / 12.5 * Collections.frequency(ranking, "3등"));
+		totalMoney -= winningMoney;
+		winningTotal += winningMoney;
+		System.out.println("총 당첨 금액: " + winningTotal); 
 	}
+	
+//	// 로또 번호, 선택 번호 reset 메소드
+//	// 메인페이지에서 다음회차로 넘어가면서 reset되도록 해야함
+//		public void reset() {
+//			lottoNum = null;
+//			getLottoNum();
+//			lottoBonus = 0;
+//			buyLottoNumList = null;
+////			getBuyLottoNum();
+//			getNumberPractice();
+//			
+//		}
+
 
 	public static void main(String[] args) {
 		new ResultPage().setVisible(true);
