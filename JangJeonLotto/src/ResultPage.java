@@ -128,7 +128,7 @@ public class ResultPage {
 		URL url = ResultPage.class.getClassLoader().getResource("images/critical.png");
 		ImageIcon image = new ImageIcon(kit.getImage(url).getScaledInstance(20, 20, Image.SCALE_SMOOTH));
 
-		URL backgroundUrl = ResultPage.class.getClassLoader().getResource("images/backgroundimg.png");
+		URL backgroundUrl = ResultPage.class.getClassLoader().getResource("images/background3.png");
 		Image background = new ImageIcon(backgroundUrl).getImage();
 
 		URL plusP = ResultPage.class.getClassLoader().getResource("images/plus.png");
@@ -143,15 +143,16 @@ public class ResultPage {
 		URL bombUrl = ResultPage.class.getClassLoader().getResource("images/bombbomb.png");
 		ImageIcon bombB = new ImageIcon(kit.getImage(bombUrl).getScaledInstance(200, 200, Image.SCALE_SMOOTH));
 		
-		URL elephantUrl = ResultPage.class.getClassLoader().getResource("images/elephant circus.png");
+		URL elephantUrl = ResultPage.class.getClassLoader().getResource("images/elephant.png");
 		ImageIcon elephantE = new ImageIcon(kit.getImage(elephantUrl).getScaledInstance(200, 200, Image.SCALE_SMOOTH));
 		
 		// 이미지 받아오기 끝
 
 		// pnlLottoNums 시작
 		JPanel pnlLottoNums = new JPanel();
-		JLabel lblLottoNums = new JLabel("당첨 번호");
+		JLabel lblLottoNums = new JLabel("당첨      ");
 		lblLottoNums.setFont(new Font("돋움", Font.BOLD, 20));
+		lblLottoNums.setForeground(Color.WHITE);
 		pnlLottoNums.add(lblLottoNums);
 
 		URL[] urlAll = new URL[6];
@@ -163,7 +164,8 @@ public class ResultPage {
 			showLottoNum[i] = new JLabel((ImageIcon) imageIcon);
 			showLottoNum[i].setText(String.valueOf(lottoNum.get(i)));
 			showLottoNum[i].setHorizontalTextPosition(JLabel.CENTER);
-			showLottoNum[i].setFont(new Font("Serif", Font.BOLD, 20));
+			showLottoNum[i].setForeground(Color.white);
+			showLottoNum[i].setFont(new Font("Serif", Font.BOLD, 25));
 			pnlLottoNums.add(showLottoNum[i]);
 		}
 
@@ -173,7 +175,8 @@ public class ResultPage {
 		JLabel lblBonusNum = new JLabel(ballB);
 		lblBonusNum.setText(String.valueOf(lottoBonus));
 		lblBonusNum.setHorizontalTextPosition(JLabel.CENTER);
-		lblBonusNum.setFont(new Font("Serif", Font.BOLD, 20));
+		lblBonusNum.setForeground(Color.white);
+		lblBonusNum.setFont(new Font("Serif", Font.BOLD, 25));
 		pnlLottoNums.add(lblBonusNum);
 
 		pnlLottoNums.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
@@ -187,12 +190,8 @@ public class ResultPage {
 		SpringLayout sl_pnlImg = new SpringLayout();
 		pnlImg.setLayout(sl_pnlImg);
 		
-		JLabel bomb = new JLabel(bombB);
-		sl_pnlImg.putConstraint(SpringLayout.NORTH, bomb, 0, SpringLayout.NORTH, pnlImg);
-		sl_pnlImg.putConstraint(SpringLayout.WEST, bomb, 0, SpringLayout.WEST, pnlImg);
-		sl_pnlImg.putConstraint(SpringLayout.SOUTH, bomb, 180, SpringLayout.NORTH, pnlImg);
-		sl_pnlImg.putConstraint(SpringLayout.EAST, bomb, 200, SpringLayout.WEST, pnlImg);
-		pnlImg.add(bomb);
+
+	
 		
 		pnlImg.setPreferredSize(new Dimension(400, 400));
 		
@@ -258,7 +257,7 @@ public class ResultPage {
 				+ "</p></html>");
 		ToolTipManager m = ToolTipManager.sharedInstance(); // 툴팁 여는 시간 조정 위해 객체 생성
 		m.setInitialDelay(0); // 초기 툴팁 출력 지연시간 0초 설정
-		JLabel winningPrice = new JLabel("당첨금 수령액: " + String.valueOf(winningTotal));
+		JLabel winningPrice = new JLabel("당첨금 수령액: " + String.valueOf(winningTotal)+"   ");
 		JLabel price = new JLabel("당첨 총 금액: " + String.valueOf(totalMoney));
 		nextBtn = new MyEmphasizeButton("다음 회차");
 
@@ -298,7 +297,6 @@ public class ResultPage {
 		pnlLottoNums.setOpaque(false); // 배경 색을 따라가도록
 		pnlImg.setOpaque(false);
 		JLabel elephant = new JLabel(elephantE);
-		sl_pnlImg.putConstraint(SpringLayout.NORTH, elephant, 6, SpringLayout.SOUTH, bomb);
 		sl_pnlImg.putConstraint(SpringLayout.WEST, elephant, -289, SpringLayout.EAST, pnlImg);
 		sl_pnlImg.putConstraint(SpringLayout.EAST, elephant, -10, SpringLayout.EAST, pnlImg);
 		pnlImg.add(elephant);
@@ -308,8 +306,9 @@ public class ResultPage {
 		printResultAll.setOpaque(false);
 		printResultSame.setOpaque(false);
 		others.setOpaque(false);
-		price.setFont(new Font("굴림", Font.PLAIN, 20));
-		lblLottoNums.setFont(new Font("굴림", Font.PLAIN, 20));
+		winningPrice.setFont(new Font("돋움", Font.BOLD, 14));
+		price.setFont(new Font("돋움", Font.BOLD, 14));
+		lblLottoNums.setFont(new Font("돋움", Font.BOLD, 20));
 
 		// 디자인 끝
 
@@ -347,7 +346,6 @@ public class ResultPage {
 		}
 		for (int i = 0; i < buyLottoNumList.size(); i++) {
 			lotto[i][7] = new JLabel(ranking.get(i));
-//			lotto[i][7].setHorizontalTextPosition(JLabel.CENTER);
 		}
 	}
 
@@ -357,7 +355,7 @@ public class ResultPage {
 		for (int i = 0; i < sameList.size(); i++) {
 			for (int j = 0; j < sameList.get(i).size(); j++) {
 				if (sameList.get(i).get(j).equals("다름")) {
-					lotto[i][j + 1].setForeground(new Color(107, 106, 105));
+					lotto[i][j + 1].setForeground(Color.gray);
 					lotto[i][j + 1].setFont(cardFontnone);
 				} else if (sameList.get(i).get(j).equals("보너스 번호 당첨!")) {
 					lotto[i][j + 1].setForeground(new Color(221, 168, 81));
@@ -395,7 +393,7 @@ public class ResultPage {
 //		getNumberPractice();
 		compareLottoNum();
 	}
-
+///////////////////////////// 연습 list 배열에 6개의 값 담기 /////////////////////////
 	// 내가 구매한 로또 5회(5000원) 구하는 메소드
 	public void getBuyLottoNum() {
 		for (int j = 0; j < 4; j++) {
@@ -411,7 +409,7 @@ public class ResultPage {
 		}
 	}
 
-///////////////////////////// 연습 list 배열에 6개의 값 담기 /////////////////////////
+	// 1등 당첨 나오는 메소드
 	public void getNumberPractice() {
 		for (int j = 0; j < 4; j++) {
 			buyLottoNum = new ArrayList<>();
@@ -485,18 +483,7 @@ public class ResultPage {
 		int countB = 0; // 보너스 번호 당첨 여부
 		// ranking 배열 길이 설정(필드에서 설정시 buyLottoNumList에 값 x라서 0으로 나옴)
 		ranking = new ArrayList<>();
-//////////////////////////////////////배열일 때 비교 메소드 Start////////////////////////////////////////////
-//		for (int sameArrayIndex = 0; sameArrayIndex < sameList.size(); sameArrayIndex++) {
-//			for (int sameIndex = 0; sameIndex < same.size(); sameIndex++) {
-//				if (sameList[sameArrayIndex][sameIndex].equals("다름")) {
-//					countD++;
-//				} else if (sameList[sameArrayIndex][sameIndex].equals("보너스 번호 당첨!")) {
-//					countB++;
-//				}
-//			}
-//		}
-//////////////////////////////////////배열일 때 비교 메소드 end////////////////////////////////////////////
-
+		
 		for (int rankingIndex = 0; rankingIndex < sameList.size(); rankingIndex++) {
 			countD = Collections.frequency(sameList.get(rankingIndex), "다름");
 			countB = Collections.frequency(sameList.get(rankingIndex), "보너스 번호 당첨!");
