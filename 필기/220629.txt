@@ -11,6 +11,6 @@
 
 이클립스 아이디
 
-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 -> password
+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 -> password
 
 ● clone : 다른 컴 사용시 repository 불러오기
