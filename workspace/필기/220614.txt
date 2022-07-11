@@ -1,0 +1,38 @@
+● 상향 형변환(up casting)
+객체는 다양한 형태를 가질 수 있는데, 상속 구조에서 자식은 부모의 형태를 띨 수 있음, 자동적으로 일어남
+-ex. Book book = new Magazine("장예림2", 100, "장예림", 220614);
+▶ 책으로 형변환 했을 때는 책의 특성을 다 사용 가능
+
+● 하향 형변환(down casting)
+상속 구조에서 부모가 자식의 형태를 띠는 것, () 안에 명시적으로 표현해주어야 함(자동으로 x)
+-ex. Magazine magazine = (Magazine) book;
+▶ 잡지로 형변환 했을 때는 잡지의 특성을 다 사용 가능
+▶ 다운캐스팅할 때는 더 작은 집합이 되므로, 책이 잡지가 맞는지 확인해야함
+-> instanceof
+	ex. if(book instanceof Magazine){};
+
+● 객체의 다형성
+: 위 상향 / 하향 형변환처럼 객체가 다양한 형태를 띠는 것
+- 자식 클래스가 부모클래스의 부모클래스 객체를 띠는 것도 가능
+▶ java는 최상단에 Object라는 클래스를 상속받도록 자동으로 설정해둠 -> 상속관계에서 최상단 class는 Object
+
+* eclipse source에 toString()만들 수 있음
+
+● Object 클래스 (p.255)
+: 명시적으로 수퍼클래스 선언해주지 않으면 Object 클래스가 맨 위 계층 클래스가 됨(java.lang 패키지 안에 있음)
+
+● equals() 메소드
+: 두 개의 객체를 비교하여 같으면 true를 반환
+- Object 제공 equals는 동등연산자인 ==를 이용 -> 기초 자료형의 경우 올바른 결과, 객체에 대해서는 동일한 객체의 주소가 동일한지 검사
+
+=> equals 메소드 재정의해야함
+- ex. public boolean equals(Object obj) {
+		if (obj instanceof Car) {
+//			Car OtherCar = (Car) obj; // 이렇게 만들어서 아래 (Car)obj 줄여서 써도 됨
+			return model.equals(((Car)obj).model); // 다운캐스팅하고 model 참조
+		
+		} else
+			return false;
+	}
+
+-equals 메소드는 하나만 부여 가능, 다른 기준이 필요할 땐 심판을 두는 방법이 있음(다른 클래스나 메소드로 호출)

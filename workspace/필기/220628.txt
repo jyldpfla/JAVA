@@ -1,0 +1,55 @@
+● 클래스로 부가창 만들기
+: 기존 창 만들듯이 class 따로 만들어주면 됨 -> setVisible, actionlistener통해 원할 때 action을 통해 보이도록
+▷ setDefaultCloseOperation();
+- ()안 
+① EXIT_ON_CLOSE : 닫기 버튼을 눌렀을 때 종료가 되도록 -> 프로그램 종료
+② DISPOSE_ON_CLOSE : 프로그램이 종료되지 않고 창만 닫힘, dispose : 창을 보이지 않도록 해줌, setVisible(false)와 비슷
+	- dipose() : 창 닫히게 하는 메소드
+	- 창 닫을 때 기본설정 dispose임
+③ DO_NOTHING_ON_CLOSE : 행동은 아무것도 일어나지 않지만 사용자가 닫기를 눌렀다는 event는 일어남
+
+● Frame
+1) Dialog : 구현을 해줄 때, Frame보다 더 구체적으로 구현 해줄 수 있음
+- 부가창의 역할을 함 -> EXIT_ON_CLOSE 주면 종료되버리는데 종료되면 안되므로 사용x
+- 최소화, 최대화 버튼 없음
+▶ setTitle() : 이름 지정
+▶ super(frame) : dialog를 보여주려고 하는 주요창들을 보여주려고 씀
+- modal 값 설정 -> 본 창이 켜져있는동안에는 다른 창과 상호작용할 수 없도록 막아둠
+① setModal(true);
+② super(생성자, true);
+
+● Listener
+1) WindowListener : 윈도우 이벤트 리스너
+- WindowAdaptor 쓰면 원하는 것만 사용 가능
+@Override
+			public void windowOpened(WindowEvent e) {
+				// 새 창이 만들어졌을 때, 딱 열렸을 때
+			}
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// 화면이 최소화로 갔을 때
+			}
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// 화면 벗어났을 때
+			}
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// 비활성화 : 활성화 반대
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// 사용자가 화면을 닫으려고 할 때
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// 화면이 닫혔을 때
+			}
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// 활성화 : 창의 focus가 있는 곳이 활성화
+			}
+
+● JOptionPane
+▶ showConfirmDialog() : 확인창 뜨도록 함, 버튼 뜨는 거 고를 수 있음
+▶ showInputDialog() : text입력 가능하도록함
