@@ -1,0 +1,69 @@
+● 데이터베이스(DBMS)
+: 파일 데이터 관리,여러 사람이 공유해서 사용할 수 있도록 하는 프로그램
+▶ 관계형 데이터베이스(RDBMS) : MySQL
+
+
+● MySQL
+1. 서버 : 실제 파일이 있는 곳, 원격에서 사용자가 접근할 수 있는 통로를 만들어줌
+2. 클라이언트 : 서버에 접근, Sql명령어를 통해 서버를 동작
+- MySQL 삭제 : 시작 - MySQL폴더 찾기 - Installer에서 전체 클릭 - 체크 - execute - 체크 2개 다 하구 재부팅
+
+- MYSQL 설치 : MySQL 홈페이지 - download - 제일 아래 community 클릭 - installer클릭 - achives에서 8.0.20 밑에꺼 다운로드 - 프로그램 설치파일 클릭 - developer - execute (Manual 제외 설치) - execute - next 두번 - port - 비밀번호 :root - next - execute finish - next - 비밀번호 치고 체크 - next execute 반복
+* localhost = 내 컴퓨터(현재 컴퓨터)
+- oprtion file - international character-set-server  : utf8mb4 확인 + default time zone 체크 '+09:00'입력 ('없이) + editor - preferences - sql editor - other 체크박스 해제
+- server - server status에서 초록불 나와야 실행중인고!
+▶ 대소문자를 가리지 않음(명령어, column명까지)
+▶ 실행 : 번개(= <Ctrl><enter>) , 한 줄만 실행(= <Ctrl><Shift)<enter>) : 번개 옆 / 그 후 output 확인해야함 -> row 개수 확인 
+▶ 주석 --, "",''  둘다 가능
+▶ 관계연산자 ->     =(같음), 논리값으로 1(true), 0 (false) , <>(같지 않음), 기타 대소여부는 똑같움
+▶ * : 전체
+▶ OR(또는, ||도 가능) , AND(그리고, &&도 가능)
+▶ ;로 구분하므로 여러줄 작성 가능
+▶ column = field
+▶ 연산은 null을 하면 모두 null만 나옴
+▶ 별명 붙여준 거 명령에선 사용 불가
+▶ 컬럼, 객체명 등 별명에 띄어쓰기 있을 때는 `(~)로 해결
+
+▶ 명령
+① show databases; : 데이터베이스목록 보여줌
+② use db이름; : 이 db 사용하겠다, db 진해지면서 활성화됨(더블클릭으로 사용하겠다 말할 수 있음)
+③ show tables; : 테이블의 목록 보기
+④ select 보고싶은것1, 보고싶은것2 from 테이블명 where 참이되는조건  ; :테이블에서 보고싶은거에서 조건이 참이되는 것들 보기 
+- select 보고싶은것1, 보고싶은것2 from 테이블명 where 참이되는조건필드 in (값 여러개) : 조건 값 여러개
+- between A and B : A와 B 사이의 값
+- not : 부정
+-> 호출 순서대로 출력
+- ex. select * from country where Name = 'South Korea';
+- where : 특정 조건을 가지는 행만보고 싶을 (원하는 행의 값을 찾아서 보여줄 때)
+⑤ desc / describe 테이블명 : 테이블의 구조
+⑥ 테이블에서 특정한 값이 없음을 표현할 때 값 - null -> null값 물어볼 때 is null / 반대 is not null
+⑦ select 테이블명 as 별명 : 테이블명 별명으로 변경돼서 출력
+⑧ round(값, 소수점자리수) : 반올림
+⑨ like '%문자%' : 문자를 포함하는 / &문자 : 문자로 끝나는 / 문자& : 문자로 시작하는 / 문자%문자 : 문자로 시작과 끝
+	like 문자_ : 문자로 시작하고 _한글자까지 ( _(underscore) = 1글자 )
+⑩ limit 숫자 : 숫자만큼의 행 개수만 출력 (개수 제한)
+⑪ offset 숫자 : (limit 숫자 뒤) 행 건너뛰기 + Limit 숫자, 숫자 (limit 숫자, 행 건너뛸 숫자) -> 페이지 나누기
+
+▶ 정렬 => order by
+- 정렬 기준이 존재해야 함
+- 제일 마지막에 자리함
+- 별명으로 해도 가능
+- ASC : 오름차순(생략 가능) / DESC : 내림차순
+- null값이 오름차순에서 제일 앞에 위치
+
+- 정렬 기준이 많을 경우 추가 제시 가능 정렬기준, 다음기준 써주면 됨 -> 1차적 기준으로 동일한 값을 가지는 행들끼리 2차적 기준으로 새롭게 정렬
+	- ex.  select * from country ORDER BY Continent, Population;
+
+▶ 비슷한 것 조회 => LIKE
+
+▶ 세션 : 1번의 접속동안은 유지되고 있는 범위 / 세션 변수 : 세션에서 사용되는 변수
+
+▶ Workbench
+● 관계형 데이터 베이스
+: 각각의 db(여러개 있을 수 o)를 table(여러개 있을 수 있음)로 관리
+▶ table : 2차원 데이터, 속성(열), 데이터(행)이 여러 개 있는 것
+- 하나의 기록을 한 줄로 관리
+- 서로 관계 있는 것을 하나의 행으로 가짐
+- 관계있는 테이블 간도 연결 -> table
+▶ port : 접근할 수 있도록 하는 번호
+- 번호로 관리, 1 ~ 6535 (보통 1000이상 사용), 기본 포트 번호 3306(다른 프로그램과 겹치면 안 됨)
