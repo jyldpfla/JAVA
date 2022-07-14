@@ -1,7 +1,7 @@
 
 SELECT * FROM employees;
 -- 각 직원들의 이름과 연봉, (연봉 - 평균연봉)
-SELECT FIRST_NAME, LAST_NAME, SALARY, SALARY - (SELECT AVG(SALARY) FROM employees) FROM employees;
+SELECT FIRST_NAME, LAST_NAME, SALARY, ROUND(SALARY - (SELECT AVG(SALARY) FROM employees),2) AS GAP FROM employees;
 
 -- 최고 연봉직원과 최저 연봉 직원들의 이름을 조회해보세요
 SELECT FIRST_NAME, LAST_NAME FROM employees WHERE SALARY IN (( SELECT MAX(SALARY) FROM employees ), ( SELECT MIN(SALARY) FROM employees ));

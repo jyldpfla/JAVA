@@ -13,6 +13,8 @@ where LAST_NAME like '%John%';
 -- 직원 테이블의 이름의 값이 6글자인 직원 조회
 select * from employees
 where FIRST_NAME like '______';
+select * from employees
+where char_length(First_Name) = 6; -- 함수 사용 가능
 -- 직원 테이블 Salary(연봉) 열의 값이 10000 ~ 15000인 직원 조회
 select * from employees
 where SALARY between 10000 and 15000;
