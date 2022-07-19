@@ -1,0 +1,19 @@
+* throw는 예외를 강제로 발생시키는 것 -> throws를 이용해서 예외처리 하기 위해
+* parsing : 문자열 형태 변환
+* mapping : 객체의 형태로 된 걸 다른 객체로 변환
+
+PreparedStatement pstmt = null;
+// Statement처럼 명령주는 것은 동일, but 미리 준비하고 그 후에 실행
+// 준비 : ?를 포함하는 sql문이 있다면, 파라미터로 값을 받아와서 안에 값을 넣어주는 역할
+// 값을 다 넣고 나면 실행
+- 보안상에서 기능이 더 뛰어남 -> sql indextion(sql 명령어를 집어넣어서 악의적인 흐름을 만들어내 공격)
+  Statement는 파라미터로 받은 문자열에 공격적인 문법이 들어가있는지 논리적인 분석이 필요, Prepared Statement는 문자열을 넣어야  하면 명령어를 넣어도 문자열 처리를 하는 등으 방식으로 실행될 수 없는 상태로 만들어버리므로 
+- Statement를 상속받음
+
+● 외래키는 기본적으로 update, delete 못하도록 막아져있음 -> restricted
+  변경되면 따라가겠다 -> cascade
+  참조값 변경되면 참조 없애겠다 -> set null
+▶ 외래키는 테이블을 만들거나(create) 수정(alter)할 때 가능
+
+● 배치(batch)작업 : 같은 작업을 반복하는 것을 한 번에 하도록
+● auto commit버튼 끄면 transaction이 생김 -> 파일 잘못 변경시 되돌릴 수 있음
