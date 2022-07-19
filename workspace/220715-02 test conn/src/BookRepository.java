@@ -25,6 +25,7 @@ public class BookRepository { // DB작업만 하도록 만듦 -> 로직이 함�
 	// 왜 안됐는지 설명하려면 int값으로 모두 처리되어야 함 but 여기서 int는 행값을 의미
 	// 다 알려줄 수 있도록 반환값을 변경해야하는데, db작업하면서 sql exception에서 왜 안되는지 알려줌
 	// 안되면 예외를 알려줄 수 있도록 throws 해줌 - 잘되면 1, 안되면 예외를 던짐
+	// 메서드 내부에서 예외가 발생했을 때 예외를 try - catch 문으로 잡아서 처리할 수 있지만 경우에 따라서 현재 메서드를 호출한 메서드로 예외를 떠넘길 수 있음
 	public int add(Book book) throws SQLException {
 	// return type이 int인 이유는 추가 잘 됐는지 sql줄로 확인할 때 편하므로
 		String query = "INSERT INTO books (title, price) VALUES ('" + book.getTitle() + "'," + book.getPrice() + ")";
