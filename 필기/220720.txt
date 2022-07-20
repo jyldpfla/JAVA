@@ -1,0 +1,57 @@
+● 로직을 가지고 있는 이름을 가진 객체
+1) 함수
+: 반복, if문도 되지만 함수를 담는 객체(return값이 있음)
+-> 로직, 입력/출력값이 들어가있음
+① administration - system variables - log_bin 검색 - log_bin_trust_function_creators 마우스 올려두고 ON으로 변경
+② schemas에서 테이블 function 우클릭 - create function에서 함수 만들고 apply
+- 호출 -> select 함수명;
+
+2) Stored procedures
+: 로직을 가지는 모든 수행문을 담을 수 있음(select, out으로 값 여러개 줄 수 있는 등)
+- 이름 주로 'sp_뒤에이름더' or 'usp_뒤에이름더' 이런식으로 지어줌
+- 호출 -> call 프로시저문이름; or call(입력값, @함수)
+- 생성 -> CREATE PROCEDURE (IN 입력값, OUT 출력값) : 입력값, 출력값 / ()비워도 됨 / 입력값만 넣어도 됨
+- DECLARE 변수명 타입 : 지역변수 만들기 (바로 초기화 해주고 싶으면 뒤에 default 값 붙이기) / SET 변수명 = 값; : 값 설정
+- repeat는 참이 될 때까지 
+
+● file을 db에 넣기
+- db file = table row
+- file은 0, 1로 구성 -> 행 type : 여러 0,1을 담을 수 있는 blob으로 설정
+▶ blob : sql에서 여러 0,1을 담을 수 있는 타입
+
+● db 파일로 가져오기
+- 장점 : db가 관리(db에서는 파일이 pk를 고유하게 가지므로 db 시스템 사용 가능해서 관리하기가 수월해짐) (but java에선 파일 있는지 유무 찾는등 해야하는데 db에선 관리가 편리) / 단점 : 파일이 저장돼있으면 자바 앱에서 파일로 바로가면 되는데, db를 들렀다와야 하므로 느림
+	- db 관리 시스템 : key값으로 관리, unique한 값으로 만들어서 관리, 참조 객체가 있다면 파일이 삭제/변경을 막아주기 등 
+-> blob을 읽을 inputStream, 읽어서 file로 써줄 outputStream 필요
+- inputStream 타입 -> getBinaryStream() // 0, 1로 파일이 저장되므로
+
+▶ connection, preparedstatement, input/outputStream까지 하면 닫아주고 열어주는 등 너무 길어짐 -> auto-closable기능 이용
+try-resource문 사용
+-()안에 auto-closable 구현할 객체의 선언과 초기화문장만 올 수 있음
+: try(Connection conn = DBUtil.getConnection(); // 여러개 사용시 ;로 구분
+	PreparedStatement pstmt = conn.preparedStatement();) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  // conn이 다 사용되고 나면 자동적으로 close가 호출됨
+
+● 테이블간 붙이기
+- 위, 옆, 아래 어느 위치에 붙이느냐에 따라 차이 o
+1) 세로로 보기
+-> column의 순서, 타입, 개수가 중요해짐 (다르면 잘못된 위치에 잘못된 값이 들어갈 수 있음)
+▶ UNION : 테이블을 세로로 이어줌, 중복되는 행은 distinct처럼 사라짐
+- ex. SELECT 1, 2, 3 UNION SELECT 4, 5, 6;
+▶ UNIONALL : 테이블을 세로로 이어줌, 중복되는 행도 그대로 붙여줌
+
+2) 가로로 보기
+▶ SELECT * FROM 테이블1, 테이블2  : 열 테이블 순서대로 나열됨, 행은 곱하는 것처럼 하나하나씩 붙음(= cross join) 
+
+3) 옆으로 붙이기 -> 여러개도 가능
+▶ LEFT JOIN
+- ex. SELECT * FROM menu as A -- A테이블이 기준(왼쪽 기준)
+LEFT JOIN(= LEFT OUTER JOIN) restaurant AS B ON A.restId = B.ID;-- B테이블을 왼쪽에 붙일것, ON 조건(A restId와 B id가 같을 때)
+- 없는 행은 NULL값으로 붙음 
+▶ RIGHT JOIN : 오른쪽 기준
+▶ INNER JOIN : 두 개 모두 값이 있어야 나옴
+
+*EER Diagram 보기
+-> database - reverse engineer - next 냅다 넘기기
