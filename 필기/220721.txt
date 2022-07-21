@@ -1,0 +1,28 @@
+● view : 보고자하는 부분을 미리 SELECT문을 적어놓고 그 결과를 VIEW 형태로 제공받는 것 => 하나의 select문에 별명을 짓는 것 
+▷ stored procedures는 하나의 논리적인 흐름을 만드는 것
+- 생성 : create view 뷰이름 as select문
+
+● create table 테이블명 like 테이블명2 : 테이블명2와 같은 모양으로 테이블 생성(가진 column 그대로 따옴)
+● 임시 테이블 (temporary table) : 잠시 사용, 접속 끊으면 사라짐
+- 언제 잠시 사용? 변수처럼 잠깐 데이터 모아서 출력해서 보고 싶을 때, db는 여러 사람이 사용하므로, 해보고 실제 db에 담아도 됨
+
+● db 여러명 사용
+- Administration - users에서 administrative roles에서 가진 권한 확인 가능
+	- 새로 user 만들어 줄 수 있음 (아이디랑 비번설정)
+		*limit to hosts matching: 경로 설정
+- administrative roles에서 역할주기 -> DBA가 가장 높은 권한
+
+* mysql connections +해서 hostname에 cmd에서 ipconfig쳐서 나온 ipv4주소 넣구 connection name 원하는대로 지정해서 로그인하게 만들면 다른 사람 mysql 연동해서 들어갈 수 있음
+* administration에서 data export - export progress - start export해서 파일 복붙하면 export 도 가능
+
+GUI흐름
+1. 사용자별 분류
+2. 사용자 기능 분류 
+3. 정보
+---------------------------------------------------------------------------------------------------
+학원 멸망 기원
+
+세상에 코딩하는 사람들 여기 이반 사람들 말고 다 멸망 기원
+세상에 개발자 우리밖에 업ㄱㅅ길 기원
+- 킹예슬 기록
+---------------------------------------------------------------------------------------------------
