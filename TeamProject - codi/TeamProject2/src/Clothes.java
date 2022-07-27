@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -103,12 +105,23 @@ public class Clothes {
 		ImageIcon convertedImage = null;
 		try {
 			ManagementDaoImpl dao = new ManagementDaoImpl();
+			/////////////////////for문 아직 실행 안됨!!!!!!!!!!!!!!!!ㄴ
+			for(int i = 0; i < dao.readByKind("top").size(); i++) {
+				Blob imageBlob = dao.readByKind("top").get(i).getImageUrl();
+				InputStream in = imageBlob.getBinaryStream();
+				BufferedImage bimg = ImageIO.read(in);
+				Image blobImage = bimg;
+				convertedImage = new ImageIcon(blobImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+				
+				// 여기서 체크박스에 바로담기!!!!
+//				JCheckBox topBox = new JCheckBox(dao.readByKind("top").get(i).getName(), ) ;
+			}
+			
 			Blob imageBlob = dao.readByKind("top").get(0).getImageUrl();
 			InputStream in = imageBlob.getBinaryStream();
 			BufferedImage bimg = ImageIO.read(in);
 			Image blobImage = bimg;
-			convertedImage = new ImageIcon(blobImage.getScaledInstance(150, 10, Image.SCALE_DEFAULT));
-//			convertedImage.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+			convertedImage = new ImageIcon(blobImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
