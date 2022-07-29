@@ -1,0 +1,15 @@
+<error report>
+
+*********************220727(수)
+
+URL 연결
+-> 
+URL url1 = Clothes.class.getClassLoader().getResource(getTop.read().get(0).getImageUrl());
+ImageIcon image1 = new ImageIcon(kit.getImage(getTop.read().get(0).getImageUrl()).getScaledInstance(200, 200, Image.SCALE_SMOOTH));
+// getClassLoader : class에서 load하겠다, + getResource :  resource를 가져오겠다 -> 이 클래스에서 resource를 가져오겠다
+
+--> 내가 지정한 경로가 절대경로이므로 이 클래스에서 가져오겠다고 지정한 것이 x 
+
+=> 변경
+ImageIcon image1 = new ImageIcon(kit.getImage(getTop.read().get(0).getImageUrl()).getScaledInstance(200, 200, Image.SCALE_SMOOTH));
+

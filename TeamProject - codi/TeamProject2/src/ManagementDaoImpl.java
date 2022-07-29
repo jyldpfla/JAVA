@@ -19,16 +19,17 @@ public class ManagementDaoImpl implements ManagementDao {
 	private Item resultMapping_S(ResultSet rs) throws SQLException {
 		int id = rs.getInt("number");
 		String name = rs.getString("product_Name");
+		String category = rs.getString("product_Category");
 		Blob imageUrl = rs.getBlob("product_Image");
 
-		return new Item(id, imageUrl);
+		return new Item(id, name, category, imageUrl);
 	}
 
 	// --------------------------------
 
 	@Override
 	public List<Item> readByKind(String product_Category) throws SQLException {
-		String query = "SELECT number, product_Name, product_Image FROM all_product WHERE product_Category = ?";
+		String query = "SELECT number, product_Name, product_Image, product_Category FROM all_product WHERE product_Category = ?";
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -82,7 +83,7 @@ public class ManagementDaoImpl implements ManagementDao {
 
 	@Override
 	public List<Item> readFromCart(String user_id) throws SQLException {
-		String query = "SELECT user_id, number, product_Name, product_Image FROM all_product AS A LEFT JOIN cart AS B ON A.product_Name = B.product WHERE user_id = ?";
+		String query = "SELECT user_id, number, product_Name, product_Image, product_Category FROM all_product AS A LEFT JOIN cart AS B ON A.product_Name = B.product WHERE user_id = ?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -104,34 +105,7 @@ public class ManagementDaoImpl implements ManagementDao {
 			DBUtil.closeConn(conn);
 		}
 		
-		
 		return cartList;
-	}
-	
-//	@Override
-//	public List<Item> readCart(String user_id, String product_Category) throws SQLException {
-//		String query = "SELECT product_Name, product_Image FROM all_product AS A LEFT JOIN cart AS B ON A.product_Name = B.product WHERE user_id = ? AND product_Category = ?";
-//		
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		List<Item> 
-//		
-//		try {
-//			conn = DBUtil.getConnection();
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, user_id);
-//			pstmt.setString(2, product_Category);
-//			rs = pstmt.executeQuery();
-//		} finally {
-//			DBUtil.closeRS(rs);
-//			DBUtil.closeStmt(pstmt);
-//			DBUtil.closeConn(conn);
-//		}
-//		
-//		return 
-//		
-//	}
-	
+	}	
 		
 }

@@ -10,17 +10,26 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.sql.Blob;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 
 import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -31,12 +40,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
 public class Clothes {
+	private List<CodiSet> codiSetList = new ArrayList<>();
 	private JPanel pnl;
 	private static JLabel lblCodiSet;
 
@@ -67,35 +80,35 @@ public class Clothes {
 		codiSet.setBorder(border);
 		pnl.add(codiSet);
 
-		JLabel lblTop = new JLabel("\uC0C1\uC758");
-		lblTop.setBounds(12, 81, 160, 160);
+		JLabel lblTop = new JLabel();
+		lblTop.setBounds(12, 81, 150, 150);
 //		lblTop.setPreferredSize(preferredSize);
 		lblCodiSet.add(lblTop);
 
-		JLabel lblBottom = new JLabel("\uD558\uC758");
-		lblBottom.setBounds(12, 260, 160, 160);
+		JLabel lblBottom = new JLabel();
+		lblBottom.setBounds(12, 260, 150, 150);
 		lblCodiSet.add(lblBottom);
 
-		JLabel lblShoes = new JLabel("\uC2E0\uBC1C");
-		lblShoes.setBounds(12, 439, 160, 160);
+		JLabel lblShoes = new JLabel();
+		lblShoes.setBounds(12, 439, 150, 150);
 		lblCodiSet.add(lblShoes);
+		
 
-		JLabel lblBag = new JLabel("\uAC00\uBC29");
-		lblBag.setBounds(169, 432, 150, 150);
-		lblCodiSet.add(lblBag);
-
-		JLabel lblAcc3 = new JLabel("\uC545\uC138\uC0AC\uB9AC3");
-		lblAcc3.setBounds(220, 292, 130, 130);
-		lblCodiSet.add(lblAcc3);
-
-		JLabel lblAcc2 = new JLabel("악세사리2");
-		lblAcc2.setBounds(220, 29, 100, 100);
-		lblCodiSet.add(lblAcc2);
-
-		JLabel lblAcc1 = new JLabel("악세사리1");
-		lblAcc1.setBounds(268, 150, 120, 120);
-		lblCodiSet.add(lblAcc1);
-
+				JLabel lblAcc1 = new JLabel();
+				codiSet.add(lblAcc1);
+				lblAcc1.setBounds(238, 10, 150, 150);
+				
+		JLabel lblAcc2 = new JLabel();
+		codiSet.add(lblAcc2);
+		lblAcc2.setBounds(238, 264, 150, 150);
+		
+				JLabel lblBag = new JLabel();
+				codiSet.add(lblBag);
+				lblBag.setBounds(170, 170, 150, 150);
+				
+						JLabel lblAcc3 = new JLabel();
+						codiSet.add(lblAcc3);
+						lblAcc3.setBounds(159, 440, 150, 150);
 		// 상의 탭 메뉴
 		JPanel top = new JPanel();
 		top.setBounds(245, 10, 227, 441);
@@ -132,140 +145,147 @@ public class Clothes {
 
 		String[] kind = { "top", "bottom", "bag", "shoes", "acc" };
 
-		// 탭메뉴 선택의상 코디셋에 추가 및 삭제 메소드
-		ItemListener checked = new ItemListener() {
+
+		ItemListener checkedTop = new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				JCheckBox eventCheckBox = (JCheckBox) e.getSource();
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					System.out.println("의상 선택");
-					switch (eventCheckBox.getText()) {
-					case "상의":
-						lblTop.setIcon(eventCheckBox.getIcon());
-						break;
-					case "하의":
-						lblBottom.setIcon(eventCheckBox.getIcon());
-						break;
-					case "가방":
-						lblBag.setIcon(eventCheckBox.getIcon());
-						break;
-					case "신발":
-						lblShoes.setIcon(eventCheckBox.getIcon());
-						break;
-					case "악세사리":
-						if (lblAcc1.getIcon() == null) {
-							lblAcc1.setIcon(eventCheckBox.getIcon());
-						} else if (lblAcc2.getIcon() == null) {
-							lblAcc2.setIcon(eventCheckBox.getIcon());
-						} else if (lblAcc3.getIcon() == null) {
-							lblAcc3.setIcon(eventCheckBox.getIcon());
-						}
-						break;
-					}
-
+					lblTop.setIcon(eventCheckBox.getIcon());
+					lblTop.setText(eventCheckBox.getText());
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
-					System.out.println("의상 선택 취소");
-					switch (eventCheckBox.getText()) {
-					case "상의":
-						lblTop.setIcon(null);
-						break;
-					case "하의":
-						lblBottom.setIcon(null);
-						break;
-					case "가방":
-						lblBag.setIcon(null);
-						break;
-					case "신발":
-						lblShoes.setIcon(null);
-						break;
-					case "악세사리":
-						if (lblAcc1.getIcon() == eventCheckBox.getIcon()) {
-							lblAcc1.setIcon(null);
-						} else if (lblAcc2.getIcon() == eventCheckBox.getIcon()) {
-							lblAcc2.setIcon(null);
-						} else if (lblAcc3.getIcon() == eventCheckBox.getIcon()) {
-							lblAcc3.setIcon(null);
-						}
-						break;
+					lblTop.setIcon(null);
+					lblTop.setText(null);
+				}
+			}
+		};
+		ItemListener checkedBottom = new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				JCheckBox eventCheckBox = (JCheckBox) e.getSource();
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					lblBottom.setIcon(eventCheckBox.getIcon());
+					lblBottom.setText(eventCheckBox.getText());
+				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+					lblBottom.setIcon(null);
+					lblBottom.setText(null);
+				}
+			}
+		};
+		ItemListener checkedBag = new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				JCheckBox eventCheckBox = (JCheckBox) e.getSource();
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					lblBag.setIcon(eventCheckBox.getIcon());
+					lblBag.setText(eventCheckBox.getText());
+				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+					lblBag.setIcon(null);
+					lblBag.setText(null);
+				}
+			}
+		};
+		ItemListener checkedShoes = new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				JCheckBox eventCheckBox = (JCheckBox) e.getSource();
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					lblShoes.setIcon(eventCheckBox.getIcon());
+					lblShoes.setText(eventCheckBox.getText());
+				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+					lblShoes.setIcon(null);
+					lblShoes.setText(null);
+				}
+			}
+		};
+		ItemListener checkedAcc = new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				JCheckBox eventCheckBox = (JCheckBox) e.getSource();
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					if (lblAcc1.getIcon() == null) {
+						lblAcc1.setIcon(eventCheckBox.getIcon());
+						lblAcc1.setText(eventCheckBox.getText());
+					} else if (lblAcc2.getIcon() == null) {
+						lblAcc2.setIcon(eventCheckBox.getIcon());
+						lblAcc2.setText(eventCheckBox.getText());
+					} else if (lblAcc3.getIcon() == null) {
+						lblAcc3.setIcon(eventCheckBox.getIcon());
+						lblAcc3.setText(eventCheckBox.getText());
+					}
+				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+					if (lblAcc1.getIcon() == eventCheckBox.getIcon()) {
+						lblAcc1.setIcon(null);
+						lblAcc1.setText(null);
+					} else if (lblAcc2.getIcon() == eventCheckBox.getIcon()) {
+						lblAcc2.setIcon(null);
+						lblAcc2.setText(null);
+					} else if (lblAcc3.getIcon() == eventCheckBox.getIcon()) {
+						lblAcc3.setIcon(null);
+						lblAcc3.setText(null);
 					}
 				}
 			}
 		};
 
-//		ItemListener checked2 = new ItemListener() {
-//			@Override
-//			public void itemStateChanged(ItemEvent e) {
-//				ManagementDaoImpl dao = new ManagementDaoImpl();
-//				JCheckBox eventCheckBox = (JCheckBox) e.getSource();
-//				if (e.getStateChange() == ItemEvent.SELECTED) {
-//					dao.readByKind("top").get(i).
-//				}
-//				
-//			}
-//		};
-
 		try {
 			ManagementDaoImpl dao = new ManagementDaoImpl();
 			for (int j = 0; j < kind.length; j++) {
-				System.out.println(kind[j]);
+				System.out.println("옷 종류 : " + kind[j]);
 				for (int i = 0; i < dao.readByKind(kind[j]).size(); i++) {
 					Blob imageBlob = dao.readByKind(kind[j]).get(i).getImageUrl();
 					InputStream in = imageBlob.getBinaryStream();
 					BufferedImage bimg = ImageIO.read(in);
 					Image blobImage = bimg;
 					convertedImage = new ImageIcon(blobImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+//					convertedImage = scaleImage(convertedImage, 150, 150);
 
 					// 여기서 체크박스에 바로담기!!!!
 					if (kind[j].equals("top")) {
 						topBox = new JCheckBox[i + 1];
-						topBox[i] = new JCheckBox(convertedImage);
-						topBox[i].setText("상의");
+						topBox[i] = new JCheckBox(dao.readByKind("top").get(i).getName(), convertedImage);
 						topBox[i].setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
 						topBox[i].setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
 						top.add(topBox[i]);
 
 						top.setLayout(new GridLayout(0, 2, 0, 0));
 
-						topBox[i].addItemListener(checked);
+						topBox[i].addItemListener(checkedTop);
 					} else if (kind[j].equals("bottom")) {
 						bottomBox = new JCheckBox[i + 1];
-						bottomBox[i] = new JCheckBox(convertedImage);
-						bottomBox[i].setText("하의");
+						bottomBox[i] = new JCheckBox(dao.readByKind("bottom").get(i).getName(), convertedImage);
 						bottomBox[i].setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
 						bottomBox[i].setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
 						bottom.add(bottomBox[i]);
 
 						bottom.setLayout(new GridLayout(0, 2, 0, 0));
-						bottomBox[i].addItemListener(checked);
+						bottomBox[i].addItemListener(checkedBottom);
 					} else if (kind[j].equals("bag")) {
 						bagBox = new JCheckBox[i + 1];
-						bagBox[i] = new JCheckBox(convertedImage);
-						bagBox[i].setText("가방");
+						bagBox[i] = new JCheckBox(dao.readByKind("bag").get(i).getName(), convertedImage);
 						bagBox[i].setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
 						bagBox[i].setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
 						bag.add(bagBox[i]);
 						bag.setLayout(new GridLayout(0, 2, 0, 0));
-						bagBox[i].addItemListener(checked);
+						bagBox[i].addItemListener(checkedBag);
 					} else if (kind[j].equals("shoes")) {
 						shoesBox = new JCheckBox[i + 1];
-						shoesBox[i] = new JCheckBox(convertedImage);
-						shoesBox[i].setText("신발");
+						shoesBox[i] = new JCheckBox(dao.readByKind("shoes").get(i).getName(), convertedImage);
 						shoesBox[i].setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
 						shoesBox[i].setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
 						shoes.add(shoesBox[i]);
 
 						shoes.setLayout(new GridLayout(0, 2, 0, 0));
-						shoesBox[i].addItemListener(checked);
+						shoesBox[i].addItemListener(checkedShoes);
 					} else if (kind[j].equals("acc")) {
 						accBox = new JCheckBox[i + 1];
-						accBox[i] = new JCheckBox(convertedImage);
-						accBox[i].setText("악세사리");
+						accBox[i] = new JCheckBox(dao.readByKind("acc").get(i).getName(), convertedImage);
 						accBox[i].setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
 						accBox[i].setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
 						acc.add(accBox[i]);
 
 						acc.setLayout(new GridLayout(0, 2, 0, 0));
-						accBox[i].addItemListener(checked);
+						accBox[i].addItemListener(checkedAcc);
 					}
 
 				}
@@ -273,18 +293,34 @@ public class Clothes {
 			}
 
 			for (int i = 0; i < dao.readFromCart("test1").size(); i++) {
-				System.out.println(dao.readFromCart("test1"));
 				Blob imageBlob = dao.readFromCart("test1").get(i).getImageUrl();
 				InputStream in = imageBlob.getBinaryStream();
 				BufferedImage bimg = ImageIO.read(in);
 				Image blobImage = bimg;
 				convertedImage = new ImageIcon(blobImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
-
+				
 				cartBox = new JCheckBox[i + 1];
-				cartBox[i] = new JCheckBox(convertedImage);
+				cartBox[i] = new JCheckBox(dao.readFromCart("test1").get(i).getName(),convertedImage);
 				cart.add(cartBox[i]);
 
 				cart.setLayout(new GridLayout(0, 2, 0, 0));
+				switch (dao.readFromCart("test1").get(i).getCategory()) {
+				case "top" :
+					cartBox[i].addItemListener(checkedTop);
+					break;
+				case "bottom" :
+					cartBox[i].addItemListener(checkedBottom);
+					break;
+				case "bag" :
+					cartBox[i].addItemListener(checkedBag);
+					break;
+				case "shoes" :
+					cartBox[i].addItemListener(checkedShoes);
+					break;
+				case "acc" :
+					cartBox[i].addItemListener(checkedAcc);
+					break;
+				}
 			}
 
 		} catch (IOException e1) {
@@ -309,20 +345,22 @@ public class Clothes {
 		lblNewLabel.setBounds(263, 669, 80, 30);
 		pnl.add(lblNewLabel);
 		
-		/// 콤보박스에 값 넣어야 해요!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		Tag_ThemeDao tagDao = new Tag_ThemeDao();
-		JComboBox comboBox = new JComboBox(tagDao.readTag());
+		JComboBox comboBox = new JComboBox(tagDao.readTag().toArray(new String[tagDao.readTag().size()]));
 		comboBox.setBounds(424, 669, 286, 30);
 		pnl.add(comboBox);
 
 
-		JButton btnApply = new JButton("\uB4F1\uB85D");
+		JButton btnApply = new JButton("\uB4F1\uB85D");		// 등록버튼
 		btnApply.setBounds(315, 763, 97, 23);
 		pnl.add(btnApply);
 
 		btnApply.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				Blob blob = null;
+				DAO_cart cartId = new DAO_cart();
+				
 				BufferedImage im = new BufferedImage(lblCodiSet.getWidth(), lblCodiSet.getHeight(),
 						BufferedImage.TYPE_INT_RGB);
 				// 이미지 객체 만들기(넓이, 높이, 이미지 색상 타입 지정)
@@ -335,11 +373,25 @@ public class Clothes {
 				lblCodiSet.paint(g);
 				// 레이블에 있는 그림그리는 메소드로 이미지에 그림을 그리기 => 레이블.그림그리기(이미지 객체에 그림그려라);
 				try {
+					// 파일로 출력
 					ImageIO.write(im, "JPG", new File(
 							"C:\\Users\\Administrator\\Desktop\\장예림\\TeamProject - codi\\TeamProject2\\resource\\코디셋\\shot.jpg"));
-					// 파일로 출력
+					try {
+						blob = Bytes(im);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 				} catch (IOException e2) {
 					e2.printStackTrace();
+				}
+	
+				CodiSet set = new CodiSet(lblTop.getText(), lblBottom.getText(), lblBag.getText(), lblShoes.getText(), lblAcc1.getText(), lblAcc2.getText(), lblAcc3.getText(), blob, "test1", comboBox.getSelectedItem().toString());
+				System.out.println(set.toString());
+				try {
+					CodiSetDaoImpl gogo = new CodiSetDaoImpl();
+					gogo.createCodi(set);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -361,6 +413,43 @@ public class Clothes {
 		pnl.add(btnCancel);
 
 	}
+	
+	public Blob Bytes(BufferedImage im) throws IOException, SQLException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(im, "PNG", baos);
+		// png 형식으로 파일 baos outstream에 저장
+		byte[] fileArray = baos.toByteArray();
+		// png 형식의 파일을 byte로 변환
+		
+//		Encoder encoder = Base64.getEncoder();
+//		// base64는 인코딩 형식 -> png포맷으로 넣어주면 됨
+//		byte[] comFileArray = encoder.encode(fileArray);
+		Blob blob = null;
+		blob = new SerialBlob(fileArray);
+		
+		
+		
+		System.out.println("돼써?" + blob);
+		return blob;
+	}
+	
+	// 사진 사이즈 조절 메소드
+	   public ImageIcon scaleImage(ImageIcon icon, int w, int h) {
+	      int nw = icon.getIconWidth();
+	      int nh = icon.getIconHeight();
+
+	      if (icon.getIconWidth() > w) {
+	         nw = w;
+	         nh = (nw * icon.getIconHeight()) / icon.getIconWidth();
+	      }
+
+	      if (nh > h) {
+	         nh = h;
+	         nw = (icon.getIconWidth() * nh) / icon.getIconHeight();
+	      }
+	      return new ImageIcon(icon.getImage().getScaledInstance(nw, nh, Image.SCALE_DEFAULT));
+	   }
+	
 
 	public static void main(String[] args) throws SQLException {
 		JFrame frame = new JFrame();

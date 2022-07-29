@@ -1,0 +1,47 @@
+220727(수)
+
+=> BufferedImage로 GUI창 컴포넌트를 이미지로 저장하기
+
+BufferedImage im = new BufferedImage(lblCodiSet.getWidth(), lblCodiSet.getHeight(), BufferedImage.TYPE_INT_RGB);
+// 이미지 객체 만들기(넓이, 높이, 이미지 색상 타입 지정)
+Graphics g = im.createGraphics();
+// 그림 그리는 객체 생성, im.createGraphics() : 그림을 그려라
+g.setColor(Color.WHITE);
+// 그림 그리는 객체가 흰색으로 칠하도록 지정
+g.fillRect(0, 0, lblCodiSet.getWidth(), lblCodiSet.getHeight());
+// 사각형 전체를 흰색으로 칠하게 함
+lblCodiSet.paint(g); 
+// 레이블에 있는 그림그리는 메소드로  이미지에 그림을 그리기  => 레이블.그림그리기(이미지 객체에 그림그려라);
+try {
+	ImageIO.write(im, "JPG", new File("C:\\Users\\Administrator\\Desktop\\장예림\\TeamProject - codi\\TeamProject2\\resources\\코디셋\\shot.jpg"));
+	// 파일로 출력
+} catch (IOException e2) {
+	e2.printStackTrace();
+}
+
+=> blob형태의 이미지 imageicon으로 만들기
+
+// 이미지 받아오기 + blob형 이미지 imageicon으로 변환
+ImageIcon convertedImage = null;
+try {
+	ManagementDaoImpl dao = new ManagementDaoImpl();
+	Blob imageBlob = dao.readByKind("top").get(0).getImageUrl();
+	InputStream in = imageBlob.getBinaryStream();
+	BufferedImage bimg = ImageIO.read(in);
+	Image blobImage = bimg;
+	convertedImage = new ImageIcon(blobImage.getScaledInstance(150, 10, Image.SCALE_DEFAULT));
+} catch (IOException e1) {
+	e1.printStackTrace();
+}
+
+
+
+220728 (목)
+
+=> e.getSource(); : 이벤트가 적용된 객체를 불러옴(같은 이름의 아이라도 이벤트가 적용된 객체만 불러오는거지!)
+
+220729 (금)
+
+=> byte형식으로 파일저장해서 이진화하기
+
+

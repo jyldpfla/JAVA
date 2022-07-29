@@ -11,10 +11,11 @@ public class Item {
 	private Blob imageUrl;
 	private String season;
 	
-	
-	public Item(int id, Blob imageUrl) {
+	public Item(int id, String name, String category, Blob imageUrl) {
 		super();
 		this.id = id;
+		this.name = name;
+		this.category = category;
 		this.imageUrl = imageUrl;
 	}
 
@@ -79,9 +80,11 @@ public class Item {
 	public void setSeason(String season) {
 		this.season = season;
 	}
+
 	@Override
 	public String toString() {
-		return "상품번호: " + id + " 이름: " + name + ", 사이즈: " + size + ", 색상: " + color + ", 분류: " + subCategory + ", season: " + season;
+		return "Item [id=" + id + ", name=" + name + ", size=" + size + ", color=" + color + ", category=" + category
+				+ ", subCategory=" + subCategory + ", imageUrl=" + imageUrl + ", season=" + season + "]";
 	}
 	
 	

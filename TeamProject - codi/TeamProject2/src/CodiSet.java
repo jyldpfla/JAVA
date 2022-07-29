@@ -2,85 +2,17 @@ import java.sql.Blob;
 
 public class CodiSet {
 	int id;
-	String product1;
-	String product2;
-	String product3;
-	String product4;
-	String product5;
-	String product6;
-	String product7;
-	String product8;
+	String product1 = null;
+	String product2 = null;
+	String product3 = null;
+	String product4 = null;
+	String product5 = null;
+	String product6 = null;
+	String product7 = null;
 	Blob codiset_image;
 	String user_id;
 	String tag_theme;
 	
-	public CodiSet(String product1, Blob codiset_image, String user_id, String tag_theme) {
-		super();
-		this.product1 = product1;
-		this.codiset_image = codiset_image;
-		this.user_id = user_id;
-		this.tag_theme = tag_theme;
-	}
-	
-	public CodiSet(String product1, String product2, Blob codiset_image, String user_id, String tag_theme) {
-		super();
-		this.product1 = product1;
-		this.product2 = product2;
-		this.codiset_image = codiset_image;
-		this.user_id = user_id;
-		this.tag_theme = tag_theme;
-	}
-
-	public CodiSet(String product1, String product2, String product3, Blob codiset_image, String user_id,
-			String tag_theme) {
-		super();
-		this.product1 = product1;
-		this.product2 = product2;
-		this.product3 = product3;
-		this.codiset_image = codiset_image;
-		this.user_id = user_id;
-		this.tag_theme = tag_theme;
-	}
-
-	public CodiSet(String product1, String product2, String product3, String product4, Blob codiset_image,
-			String user_id, String tag_theme) {
-		super();
-		this.product1 = product1;
-		this.product2 = product2;
-		this.product3 = product3;
-		this.product4 = product4;
-		this.codiset_image = codiset_image;
-		this.user_id = user_id;
-		this.tag_theme = tag_theme;
-	}
-
-	public CodiSet(String product1, String product2, String product3, String product4, String product5,
-			Blob codiset_image, String user_id, String tag_theme) {
-		super();
-		this.product1 = product1;
-		this.product2 = product2;
-		this.product3 = product3;
-		this.product4 = product4;
-		this.product5 = product5;
-		this.codiset_image = codiset_image;
-		this.user_id = user_id;
-		this.tag_theme = tag_theme;
-	}
-
-	public CodiSet(String product1, String product2, String product3, String product4, String product5, String product6,
-			Blob codiset_image, String user_id, String tag_theme) {
-		super();
-		this.product1 = product1;
-		this.product2 = product2;
-		this.product3 = product3;
-		this.product4 = product4;
-		this.product5 = product5;
-		this.product6 = product6;
-		this.codiset_image = codiset_image;
-		this.user_id = user_id;
-		this.tag_theme = tag_theme;
-	}
-
 	public CodiSet(String product1, String product2, String product3, String product4, String product5, String product6,
 			String product7, Blob codiset_image, String user_id, String tag_theme) {
 		super();
@@ -96,8 +28,7 @@ public class CodiSet {
 		this.tag_theme = tag_theme;
 	}
 	
-	public CodiSet(String product1, String product2, String product3, String product4, String product5, String product6,
-			String product7, String product8, Blob codiset_image, String user_id, String tag_theme) {
+	public CodiSet(String product1, String product2, String product3, String product4, String product5, String product6, Blob codiset_image, String user_id, String tag_theme) {
 		super();
 		this.product1 = product1;
 		this.product2 = product2;
@@ -105,8 +36,56 @@ public class CodiSet {
 		this.product4 = product4;
 		this.product5 = product5;
 		this.product6 = product6;
-		this.product7 = product7;
-		this.product8 = product8;
+		this.codiset_image = codiset_image;
+		this.user_id = user_id;
+		this.tag_theme = tag_theme;
+	}
+	
+	public CodiSet(String product1, String product2, String product3, String product4, String product5, Blob codiset_image, String user_id, String tag_theme) {
+		super();
+		this.product1 = product1;
+		this.product2 = product2;
+		this.product3 = product3;
+		this.product4 = product4;
+		this.product5 = product5;
+		this.codiset_image = codiset_image;
+		this.user_id = user_id;
+		this.tag_theme = tag_theme;
+	}
+	
+	public CodiSet(String product1, String product2, String product3, String product4, Blob codiset_image, String user_id, String tag_theme) {
+		super();
+		this.product1 = product1;
+		this.product2 = product2;
+		this.product3 = product3;
+		this.product4 = product4;
+		this.codiset_image = codiset_image;
+		this.user_id = user_id;
+		this.tag_theme = tag_theme;
+	}
+	
+	public CodiSet(String product1, String product2, String product3, Blob codiset_image, String user_id, String tag_theme) {
+		super();
+		this.product1 = product1;
+		this.product2 = product2;
+		this.product3 = product3;
+		this.codiset_image = codiset_image;
+		this.user_id = user_id;
+		this.tag_theme = tag_theme;
+	}
+	
+	public CodiSet(String product1, String product2, Blob codiset_image, String user_id, String tag_theme) {
+		super();
+		this.product1 = product1;
+		this.product2 = product2;
+		this.codiset_image = codiset_image;
+		this.user_id = user_id;
+		this.tag_theme = tag_theme;
+	}
+	
+	public CodiSet(String product1, Blob codiset_image, String user_id, String tag_theme) {
+		super();
+		this.product1 = product1;
 		this.codiset_image = codiset_image;
 		this.user_id = user_id;
 		this.tag_theme = tag_theme;
@@ -177,19 +156,38 @@ public class CodiSet {
 		this.product7 = product7;
 	}
 
-	public String getProduct8() {
-		return product8;
+
+	public Blob getCodiset_image() {
+		return codiset_image;
 	}
 
-	public void setProduct8(String product8) {
-		this.product8 = product8;
+	public void setCodiset_image(Blob codiset_image) {
+		this.codiset_image = codiset_image;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+
+	public String getTag_theme() {
+		return tag_theme;
+	}
+
+	public void setTag_theme(String tag_theme) {
+		this.tag_theme = tag_theme;
 	}
 
 	@Override
 	public String toString() {
 		return "CodiSet [id=" + id + ", product1=" + product1 + ", product2=" + product2 + ", product3=" + product3
 				+ ", product4=" + product4 + ", product5=" + product5 + ", product6=" + product6 + ", product7="
-				+ product7 + ", product8=" + product8 + "]";
+				+ product7 + ", codiset_image=" + codiset_image + ", user_id=" + user_id + ", tag_theme=" + tag_theme
+				+ "]";
 	}
+	
 	
 }

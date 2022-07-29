@@ -8,7 +8,7 @@ import java.util.List;
 import kr.co.greenart.dbutil.DBUtil;
 
 public class Tag_ThemeDao {
-	public String[] readTag() throws SQLException {
+	public List<String> readTag() throws SQLException {
 		String query = "SELECT codi FROM tag_theme";
 		
 		Connection conn = null;
@@ -26,12 +26,7 @@ public class Tag_ThemeDao {
 				tags.add(tag);
 			}
 			
-			// 배열 다운캐스팅
-			Object[] tagAll = new String[tags.size()];
-			tagAll = tags.toArray();
-			String[] tag = (String[]) tagAll;
-			
-			return tag;
+			return tags;
 			
 		} finally {
 			DBUtil.closeStmt(pstmt);
