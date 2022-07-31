@@ -298,7 +298,7 @@ public class Clothes extends JFrame {
 
 		lblCodiSet.add(lblTop);
 		lblClick(lblTop);
-		lblTop.setBounds(30, 60, 200, 200);
+		lblTop.setBounds(30, 60, 150, 150);
 		lblTop.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
 		lblTop.setForeground(new Color(0, 0, 0, 0));
 
@@ -313,30 +313,30 @@ public class Clothes extends JFrame {
 		lblBottom.setBounds(30, 180, 150, 150);
 		lblBottom.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
 		lblBottom.setForeground(new Color(0, 0, 0, 0));
-
-		lblBag.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
-		lblBag.setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
-		lblCodiSet.add(lblBag);
-		lblClick(lblBag);
-		lblBag.setBounds(200, 100, 150, 150);
-
-		lblAcc1.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
-		lblAcc1.setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
-		lblCodiSet.add(lblAcc1);
-		lblClick(lblAcc1);
-		lblAcc1.setBounds(117, 220, 150, 150);
-
-		lblAcc2.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
-		lblAcc2.setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
-		lblCodiSet.add(lblAcc2);
-		lblClick(lblAcc2);
-		lblAcc2.setBounds(238, 264, 150, 150);
-
-		lblAcc3.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
-		lblAcc3.setForeground(new Color(0, 0, 0, 0)); // 글자 투명하게 하기
-		lblCodiSet.add(lblAcc3);
-		lblClick(lblAcc3);
-		lblAcc3.setBounds(159, 440, 150, 150);
+				codiSet.add(lblBag);
+		
+				lblBag.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
+				lblBag.setForeground(new Color(0, 0, 0, 0));
+				lblClick(lblBag);
+				lblBag.setBounds(215, 163, 150, 150);
+						codiSet.add(lblAcc1);
+				
+						lblAcc1.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
+						lblAcc1.setForeground(new Color(0, 0, 0, 0));
+						lblClick(lblAcc1);
+						lblAcc1.setBounds(115, 440, 150, 150);
+								codiSet.add(lblAcc2);
+						
+								lblAcc2.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
+								lblAcc2.setForeground(new Color(0, 0, 0, 0));
+								lblClick(lblAcc2);
+								lblAcc2.setBounds(15, 250, 150, 150);
+										codiSet.add(lblAcc3);
+								
+										lblAcc3.setHorizontalTextPosition(0); // 글자와 이미지 중간에 오게하기
+										lblAcc3.setForeground(new Color(0, 0, 0, 0));
+										lblClick(lblAcc3);
+										lblAcc3.setBounds(230, 10, 150, 150);
 		// 상의 탭 메뉴
 		JPanel top = new JPanel();
 		top.setBounds(245, 10, 400, 600);
@@ -701,9 +701,7 @@ public class Clothes extends JFrame {
 		public void itemStateChanged(ItemEvent e) {
 			JCheckBox eventCheckBox = (JCheckBox) e.getSource();
 			if (e.getStateChange() == ItemEvent.SELECTED || e.getStateChange() == ItemEvent.DESELECTED) {
-				ImageIcon imageIcon = new ImageIcon(((ImageIcon) eventCheckBox.getIcon()).getImage()
-						.getScaledInstance(200, 200, Image.SCALE_DEFAULT));
-				lblTop.setIcon(imageIcon);
+				lblTop.setIcon(eventCheckBox.getIcon());
 				lblTop.setText(eventCheckBox.getName());
 			}
 		}
@@ -714,6 +712,8 @@ public class Clothes extends JFrame {
 		public void itemStateChanged(ItemEvent e) {
 			JCheckBox eventCheckBox = (JCheckBox) e.getSource();
 			if (e.getStateChange() == ItemEvent.SELECTED || e.getStateChange() == ItemEvent.DESELECTED) {
+				ImageIcon imageIcon = new ImageIcon(((ImageIcon) eventCheckBox.getIcon()).getImage()
+						.getScaledInstance(200, 200, Image.SCALE_DEFAULT));
 				lblBottom.setIcon(eventCheckBox.getIcon());
 				lblBottom.setText(eventCheckBox.getName());
 			}
@@ -750,7 +750,7 @@ public class Clothes extends JFrame {
 				if (lblAcc1.getIcon() == null) {
 					lblAcc1.setIcon(eventCheckBox.getIcon());
 					lblAcc1.setText(eventCheckBox.getName());
-				} else if (lblAcc2.getIcon() == null && lblAcc1.getIcon() == lblAcc2.getIcon()) {
+				} else if (lblAcc2.getIcon() == null) {
 					lblAcc2.setIcon(eventCheckBox.getIcon());
 					lblAcc2.setText(eventCheckBox.getName());
 				} else if (lblAcc3.getIcon() == null) {
