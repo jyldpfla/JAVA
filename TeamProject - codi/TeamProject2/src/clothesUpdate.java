@@ -14,9 +14,8 @@ public class clothesUpdate {
 		
 		try {
 			conn = DBUtil.getConnection();
-			pstmt = conn.prepareStatement("UPDATE all_product SET product_Image = ? WHERE product_Name = '악세_2'");
-			
-			pstmt.setBlob(1, new FileInputStream(new File("C:\\Users\\Administrator\\Desktop\\장예림\\TeamProject - codi\\TeamProject2\\resource\\악세사리\\목걸이2.png")));
+			pstmt = conn.prepareStatement("UPDATE all_product SET product_Image = ? WHERE product_Name = '악세_4'");
+			pstmt.setBlob(1, new FileInputStream(new File("C:\\Users\\jyldp\\Desktop\\팀프로젝트2\\TeamProject - codi\\TeamProject2\\resource\\악세사리\\목걸이4.png")));
 			
 			pstmt.executeUpdate();
 			System.out.println("실행 완료");

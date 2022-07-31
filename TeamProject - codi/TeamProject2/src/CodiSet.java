@@ -13,6 +13,10 @@ public class CodiSet {
 	String user_id;
 	String tag_theme;
 	
+	public CodiSet() {
+		
+	}
+	
 	public CodiSet(String product1, String product2, String product3, String product4, String product5, String product6,
 			String product7, Blob codiset_image, String user_id, String tag_theme) {
 		super();

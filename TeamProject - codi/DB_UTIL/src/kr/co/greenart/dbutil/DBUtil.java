@@ -14,7 +14,7 @@ public class DBUtil {
    private final static Properties properties = new Properties();
    
    static {
-	   System.out.println("스태틱 블럭은 언제 실행되나요오?");
+//	   System.out.println("스태틱 블럭은 언제 실행되나요오?");
       InputStream inStream = null;
       
       try {

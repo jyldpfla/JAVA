@@ -106,6 +106,36 @@ public class ManagementDaoImpl implements ManagementDao {
 		}
 		
 		return cartList;
+	}
+
+
+	@Override
+	public List<Item> readFromCodi(String user_id, int id) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Item> codiProduct = new ArrayList<>();
+		
+		try {
+			conn = DBUtil.getConnection();
+			for(int i = 1; i <= 7;  i++) {
+				String query = "SELECT number, product_Name, product_Image, product_Category FROM all_product AS A LEFT JOIN codiset_new AS B ON A.product_Name = B.product" + i + " WHERE user_id = ? AND id = ?";
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, user_id);
+				pstmt.setInt(2, id);
+				rs = pstmt.executeQuery();
+					while (rs.next()) {
+							codiProduct.add(resultMapping_S(rs));
+					}
+				}
+			return codiProduct;
+		} finally {
+			DBUtil.closeRS(rs);
+			DBUtil.closeStmt(pstmt);
+			DBUtil.closeConn(conn);
+		}
+		
+		
 	}	
 		
 }
