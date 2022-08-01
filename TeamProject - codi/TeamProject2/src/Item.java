@@ -18,6 +18,15 @@ public class Item {
 		this.category = category;
 		this.imageUrl = imageUrl;
 	}
+	
+	public Item(int id, String name, String category, String subCategory, Blob imageUrl) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.subCategory = subCategory;
+		this.imageUrl = imageUrl;
+	}
 
 	public Item(int id, String name, String size, String color, String category, String subCategory, Blob imageUrl,
 			String season) {

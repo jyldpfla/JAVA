@@ -20,16 +20,17 @@ public class ManagementDaoImpl implements ManagementDao {
 		int id = rs.getInt("number");
 		String name = rs.getString("product_Name");
 		String category = rs.getString("product_Category");
+		String subCategory = rs.getString("product_Sub_Category");
 		Blob imageUrl = rs.getBlob("product_Image");
 
-		return new Item(id, name, category, imageUrl);
+		return new Item(id, name, category, subCategory, imageUrl);
 	}
 
 	// --------------------------------
 
 	@Override
 	public List<Item> readByKind(String product_Category) throws SQLException {
-		String query = "SELECT number, product_Name, product_Image, product_Category FROM all_product WHERE product_Category = ?";
+		String query = "SELECT number, product_Name, product_Image, product_Category, product_Sub_Category  FROM all_product WHERE product_Category = ?";
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -83,7 +84,7 @@ public class ManagementDaoImpl implements ManagementDao {
 
 	@Override
 	public List<Item> readFromCart(String user_id) throws SQLException {
-		String query = "SELECT user_id, number, product_Name, product_Image, product_Category FROM all_product AS A LEFT JOIN cart AS B ON A.product_Name = B.product WHERE user_id = ?";
+		String query = "SELECT user_id, number, product_Name, product_Image, product_Category, product_Sub_Category FROM all_product AS A LEFT JOIN cart AS B ON A.product_Name = B.product WHERE user_id = ?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -119,7 +120,7 @@ public class ManagementDaoImpl implements ManagementDao {
 		try {
 			conn = DBUtil.getConnection();
 			for(int i = 1; i <= 7;  i++) {
-				String query = "SELECT number, product_Name, product_Image, product_Category FROM all_product AS A LEFT JOIN codiset_new AS B ON A.product_Name = B.product" + i + " WHERE user_id = ? AND id = ?";
+				String query = "SELECT number, product_Name, product_Image, product_Category, product_Sub_Category FROM all_product AS A LEFT JOIN codiset_new AS B ON A.product_Name = B.product" + i + " WHERE user_id = ? AND id = ?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, user_id);
 				pstmt.setInt(2, id);
@@ -136,6 +137,30 @@ public class ManagementDaoImpl implements ManagementDao {
 		}
 		
 		
-	}	
+	}
+	
+	public Item readProdcutImage(String product_Name) throws SQLException {
+		String query = "SELECT number, product_Name, product_Image, product_Category, product_Sub_Category FROM all_product WHERE product_name = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, product_Name);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return resultMapping_S(rs);
+			}
+		} finally {
+			DBUtil.closeRS(rs);
+			DBUtil.closeStmt(pstmt);
+			DBUtil.closeConn(conn);
+		}
+		return null;
+	}
 		
 }

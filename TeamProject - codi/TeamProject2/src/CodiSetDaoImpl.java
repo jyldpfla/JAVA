@@ -29,7 +29,7 @@ public class CodiSetDaoImpl implements CodiSetDao {
 	public int createCodiSet(List<String> list, Blob blob) throws SQLException, IOException {
 		String a = "";
 		String b = "";
-		for (int i = 0; i < list.size() - 3; i++) {
+		for (int i = 0; i < list.size() - 2; i++) {
 			a += "product" + (i + 1) + ", ";
 			b += "?, ";
 		}
@@ -44,7 +44,8 @@ public class CodiSetDaoImpl implements CodiSetDao {
 			conn = DBUtil.getConnection();
 			pstmt = conn.prepareStatement(query);
 			
-			for (int i = 0; i < list.size() - 3; i++) {
+			System.out.println("리스트사이즈내놔!" + list.size());
+			for (int i = 0; i < list.size() - 2; i++) {
 				pstmt.setString(i+1, list.get(i).toString());
 			}
 			
@@ -53,11 +54,12 @@ public class CodiSetDaoImpl implements CodiSetDao {
 			
 //			byte[] fileArray = convertObjectToBytes(list.get(list.size() - 3));
 //			Blob blob = new SerialBlob(fileArray);
-			
-			
-			pstmt.setBlob(list.size() - 2, blob);
-			pstmt.setString(list.size() - 1, list.get(list.size() - 2).toString());
-			pstmt.setString(list.size(), list.get(list.size() - 1).toString());
+//			list {1, 2, 3, 4}
+//			set  {1, 2, 3, 4}
+//			index[0, 1, 2, 3]
+			pstmt.setBlob(list.size() - 1, blob);
+			pstmt.setString(list.size(), list.get(list.size() - 2).toString());
+			pstmt.setString(list.size() + 1, list.get(list.size() - 1).toString());
 			
 			return pstmt.executeUpdate();
 			
