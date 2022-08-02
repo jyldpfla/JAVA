@@ -185,7 +185,7 @@ public class Clothes extends JFrame {
 	JCheckBox[] bagBox;
 	JCheckBox[] shoesBox;
 	JCheckBox[] accBox;
-	JCheckBox[] cartBox;
+	JCheckBox[] cartBox = null;
 
 	private static JLabel lblCodiSet;
 
@@ -564,7 +564,13 @@ public class Clothes extends JFrame {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		cart.setPreferredSize(new Dimension(400, ((int) (cartBox.length + 1) / 2 * 170)));
+
+		if(cartBox == null) {
+			cart.setPreferredSize(new Dimension(400, 170));
+		} else if(cartBox.length != 0) {
+			cart.setPreferredSize(new Dimension(400, ((int) (cartBox.length + 1) / 2 * 170)));
+		}
+ 		
 		
 		
 		// 탭 메뉴창
@@ -1001,7 +1007,7 @@ public class Clothes extends JFrame {
 //		int choice = scan.nextInt();
 //		while (true) {
 //			if (choice == 1) {
-		new Clothes("test1").setVisible(true);
+		new Clothes("binaryho").setVisible(true);
 //				break;
 //			} else if (choice == 2) {
 //		new Edit("test1", 25);
