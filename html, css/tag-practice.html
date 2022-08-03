@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>태그 연습하기</title>
+    <style>
+      header {
+        background-color: #383838;
+        border: 1px solid red;
+      }
+      /* header > h1 */
+      #white-heading {
+        color: #fff;
+        text-align: center;
+      }
+      .red-heading {
+        color: red;
+      }
+      nav ul {
+        display: flex;
+      }
+      nav ul li {
+        list-style: none;
+        margin-right: 20px;
+      }
+      .container {
+        display: flex;
+      }
+      main {
+        flex: 3;
+        background-color: aqua;
+      }
+      aside {
+        flex: 1;
+        background-color: beige;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<header style="background-color: #a9a9a9; border: 1px solid #ff0000">-->
+    <header>
+      <!--안에 style 쓰면 간단하게 css 사용은 가능하지만, 이후 재활용/파일 만들기 어렵-->
+      <!--영역을 잘 감싸둬야 나중에 사용이 편리-->
+      <h1 id="white-heading">헤더 영역</h1>
+      <h1 class="red-heading">헤딩이 두 개면?</h1>
+    </header>
+
+    <nav>
+      <!--<ul>, <ol> : 순서가 없는 / 있는 list를 보여주는 태그-->
+      <ul>
+        <li><a href="first.html">첫번째</a></li>
+        <li><a href="second.html">두번째</a></li>
+        <li><a href="inner/third.html">세번째</a></li>
+        <li><a href="inputtest.html">입력연습</a></li>
+      </ul>
+      <!--
+      <ol>  
+        <li><a href="first.html">첫번째</a></li>
+        <li><a href="second.html">두번째</a></li>
+        <li><a href="inner/third.html">세번째</a></li>
+      </ol>
+      -->
+    </nav>
+
+    <div class="container">
+      <main>
+        <h1 class="red-heading">메인 영역</h1>
+        <article>
+          <h2>글 내용 요약 제목</h2>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
+            repellendus cum minima aperiam dolore itaque, unde perspiciatis
+            placeat accusantium. Earum quos cupiditate totam praesentium vitae
+            voluptatem eos quod, cumque assumenda.
+          </p>
+        </article>
+      </main>
+      <aside>사이드 영역</aside>
+    </div>
+    <footer>푸터 영역</footer>
+  </body>
+</html>
