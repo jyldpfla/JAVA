@@ -4,7 +4,6 @@
 크롬 개발자도구 - network를 통해 사용자가 요청한 것이 무엇인지 확인 가능
 - general 
 ① request URL : 사용자가 요청한 경로
-② 
 
 http 프로토콜 응답 시에,
 - head : 개발자도구 network - response header의 내용 확인
@@ -16,3 +15,7 @@ http 프로토콜 응답 시에,
 window.alert() : 경고창
 console.log() : 콘솔창 출력(,로 여러 타입 한 번에 출력 가능)
 
+
+
+● DOM, Document Object Model
+브라우저는 문서에 있는 html의 요소들과 소통할 수 있도록 조작 객체를 만들어두는데, 그 객체를 뜻함
