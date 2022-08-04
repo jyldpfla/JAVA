@@ -1,0 +1,18 @@
+● 톰캣
+▶ 카탈리나 홈 : 톰캣이 설치된 경로
+
+크롬 개발자도구 - network를 통해 사용자가 요청한 것이 무엇인지 확인 가능
+- general 
+① request URL : 사용자가 요청한 경로
+② 
+
+http 프로토콜 응답 시에,
+- head : 개발자도구 network - response header의 내용 확인
+- body : 사용자가 요청한 html파일이 들어가있음
+
+브라우저 역할
+-> javascript의 실행환경 - console에 입력해보면 됨
+
+window.alert() : 경고창
+console.log() : 콘솔창 출력(,로 여러 타입 한 번에 출력 가능)
+
