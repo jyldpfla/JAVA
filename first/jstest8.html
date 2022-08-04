@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Page Title</title>
+  </head>
+  <body>
+    <p>방가방가</p>
+  </body>
+  <script>
+    let i = 10;
+    switch (i) {
+      case 1:
+        console.log("1임");
+        break;
+      case "1" + "0":
+        // case 조건 안에서 연산 가능, 엄격 비교해서 ()와 같으면 true
+        console.log("10임");
+      default:
+        console.log("기본");
+    }
+  </script>
+</html>

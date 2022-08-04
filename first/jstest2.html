@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Page Title</title>
+  </head>
+  <body>
+    <p>방가방가</p>
+  </body>
+  <script>
+    var myVar = 10;
+    // 초기화 x시, console 출력하면 undefined로 출력
+    // compile이라는 선행단계가 없음
+    // interpreter? 언어 : 브라우저가 그 때마다 한 줄씩 읽어서 수행
+
+    console.log(myVar);
+
+    myVar = "changed";
+    // js는 동적타이핑 사용 -> 때에 맞는 변수형으로 읽어냄
+    // 함수에 어떤 데이터가 올지 알 수 없으므로 계산 등 수행할 때 어려움
+    // type? time? script : 컴파일을 하고 script 수행 (error 예측 어려움 감소)
+    console.log(myVar);
+  </script>
+</html>
