@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Page Title</title>
+    <style>
+      .red {
+        color : red;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="move">이동하기</button>
+    <div id="mydiv"></div>
+    <button id="changebtn">텍스트값 변경하기</button>
+    <button id="color">색깔 변경하기</button>
+  </body>
+  <script>
+    document.getElementById("move")
+      .addEventListener("click", function(e) {
+        if(confirm("네이버로 이동하시겠습니까?")) { // 확인 메세지 띄우기
+          // 확인 true, 취소 false
+          window.location.href = "http://www.naver.com";
+          // window.location : 현재 위치를 나타내고 있는 객체((현재 주소값)이 href값으로 담겨있음)
+          // 페이지 창으로 이동이 이루어짐
+        }
+    });
+
+    let mydiv = document.getElementById("mydiv");
+    let changebtn = document.getElementById("changebtn");
+    let colorbtn = document.getElementById("color");
+
+    colorbtn.addEventListener("click", function(e) {
+      //DOM을 통해서 CSS도 변경 가능
+      // mydiv.style.color = "red";
+      mydiv.classList.toggle("red"); //<style>안의 메소드 이용
+      // toggle : 클래스 속성이 적용되어있으면 빠지고, 빠져있으면 들어감
+
+    });
+
+    changebtn.addEventListener("click", function(e) {
+      // mydiv.innerText = "<strong>텍스트값을 변경하였습니다.</strong>"; 
+      // innerText : 객체 안의 텍스트 값 설정(모두 문자열로 받음), tag표현을 해도 그냥 문자열로 인식, text만 사용할 때
+      mydiv.innerHTML = "<strong>텍스트값을 변경하였습니다.</strong>"; 
+      // innerHTML : tag를 tag로 인식, html 형식 그대로 반영
+    });
+  </script>
+</html>

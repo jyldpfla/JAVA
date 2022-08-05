@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Page Title</title>
+  </head>
+  <body>
+    <!-- <button onclick="myListener()">눌러봐</button> -->
+    <button id="mybtn">눌러봐</button>
+    <input id="mytext" value="test값" />
+    <button id="printbtn">나와랑</button>
+  </body>
+  <script>
+    function myListener(e) {
+      alert("왜 누르니?");
+      console.log(e);
+    }
+
+    mybtn.onclick = myListener; // id 값으로 attribute 설정 가능
+
+    let elem = document.getElementById("mybtn"); // id값 참조하는 변수 생성
+    elem.addEventListener("click", myListener); // eventlistener 추가
+    // 함수명()와 함수명만 쓰는 것은 다름 
+    // ()가 있으면 호출해서 함수의 반환값을 집어넣는 것 => return이 없어서 'undefined'가 됨
+    // ()가 없으면 함수를 그냥 넣는 것 => 함수 이용
+
+    let inputText = document.getElementById("mytext");
+    console.log(inputText.value);
+
+    
+  // text 입력 요소, button 요소를 배치하고
+  // 사용자가 입력한 내용을 콘솔 출력하기
+    
+    let elem2 = document.getElementById("printbtn"); 
+    // 버튼요소와 소통할 수 있는 변수 생성
+    printbtn.addEventListener("click", function (e) { // click 타입의 이벤트가 e로 들어감 -> click이 일어났을 때
+      // mousedown(= java pressed) : 눌렀을 때, mouseon : 눌렀다가 뗐을 때, click : 클릭했을 때
+      console.log("테스트 출력값입니다.");
+      console.log(inputText.value);
+    });
+  </script>
+</html>

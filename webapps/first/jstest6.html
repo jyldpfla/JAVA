@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Page Title</title>
+  </head>
+  <body>
+    <p>방가방가</p>
+  </body>
+  <script>
+    if ("0") {
+      // 조건문 안에 문자열 / 숫자 삽입 가능
+      // 값이 있는 문자열(ex. "sdfzxcv", "0") / 숫자  -> 참
+      // {}(객체 / [](array) / Infinity(무한) -> 참
+      // 값이 없는 문자열(ex. ""), 숫자 0, null, undefined, NaN -> 거짓
+      console.log("참임");
+    } else {
+      console.log("거짓임");
+    }
+
+    let result = true ? "왼쪽" : "오른쪽";
+    // 삼항연산자도 존재
+    console.log(result);
+
+    let nullish = null ?? "hello";
+    // 왼쪽에 있는 값이 null이면 오른쪽 값으로 변경해줌
+    console.log(nullish);
+
+    console.log(true && true); // 참
+    console.log(false || true); // 참
+
+    console.log("asdf" && "" && "abbb");
+    // 빈문자열 있으면 빈문자열 가져옴 -> 첫 번째로 false로 판단할 수 있는 것 가져옴
+    // false로 판단할 수 있는 것이 없으면 마지막꺼 가져옴
+    console.log(0 && 500);
+
+    console.log("asdf" || null);
+    // 참이라고 할 수 있는 첫번째 값을 가져옴
+    console.log(0 || null || false || "zxcv");
+
+    console.log(!true);
+    // !붙으면 not으로 조건 붙음
+    console.log(!"asdf");
+    console.log(!0);
+  </script>
+</html>
