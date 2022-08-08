@@ -20,7 +20,7 @@ window - show view - servers or 아래 console 뜨는 쪽 servers 클릭 - creat
 
 ▶ 파일 생성 : WebContent 우클릭 - html파일 - fine name 지정 - 기본 템플릿 지정칸에서 html5 누르고 finish - ok
 	- jsp파일 생성시 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 이 부분   
-		=> page directive : jsp에서 필요한 설정들을 미리 해두는 공간
+		=> page directive : jsp에서 필요한 설정들을 미리 해두는 공간, jsp 설정칸
 	- jsp파일은 궁극적으로 html 문서
 ▶ 파일 구동 : 프로젝트 우클릭 - run as - run on server 클릭 - tomcat 목록(등록한 서버 목록)에서 클릭 next - 실행 파일 우측에 있는지 확인
 ▶ 웹에서 파일 켜기 : localhost:8080/context root 경로(프로젝트명과 다를 수 있음)/파일명.확장자명
@@ -34,7 +34,7 @@ window - show view - servers or 아래 console 뜨는 쪽 servers 클릭 - creat
 ▶ jsp 파일 :  궁극적으로 html 문서
 - <%@ %> page directive : jsp에서 필요한 설정들을 미리 해두는 공간 (<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 부분)
 - <% %> scriptlet : 안에 java 언어 작성 가능
-	- <%= %>표현식 : 메소드를 읽어서 toString으로 출력해줌 (<%= java.time.LocalTime.now() %> 이 부분) 
+	- <%= %> 표현식 : 메소드를 읽어서 toString으로 출력해줌 (<%= java.time.LocalTime.now() %> 이 부분) 
 	- <%-- --%> : 주석처리
 	- java언어라 compile error나면 error 뜸
 - 사용자 1명의 연결에 대해서 1:1로 1개의 실행 흐름(thread)를 만듦 -> 사용자 요청대로 thread가 실행흐름에서 jsp파일을 찾아내서 위에서부터 읽어내려옴 
@@ -45,7 +45,14 @@ window - show view - servers or 아래 console 뜨는 쪽 servers 클릭 - creat
 ▶ form
 - action : 입력양식에 들어간 정보를 보여줄 수 있는 곳으로 옮기라고 명령
 - method : 사용자가 submit을 눌렀을 때 어떠한 방식으로 요청을 만들지 명시
+▶ 요청방식
 ① get : body가 없고 parmeter가 사용자가 요청한 주소에 붙어서 표현이 됨 -> 사용자에게 드러남
+* URL은 한글을 표현할 수 없어서 URL은 한글을 보면 encoding을 함(문자 변환하는 작업을 함) -> URLdecoding필요, encoding/decoding은 같은 방법으로 실행해야 원래의 값을 가질 수 있음 (charset의 형식에 맞춰서 decoding을 하면 됨)
 ② post : body에 사용자의 요청 정보가 담김(요청 정보 길이 = body의 길이값)
-* URL은 한글을 표현할 수 없어서 URL은 한글을 보면 encoding을 함(문자 변환하는 작업을 함) -> decoding필요, encoding/decoding은 같은 방법으로 실행해야 원래의 값을 가질 수 있음 (charset의 형식에 맞춰서 decoding을 하면 됨)
+
+● 상태 코드 : 전달받은 상태를 알려줌
+- 200 : ok
+- 404 : 요청한 것을 찾을 수 없음
+- 500번대는 주로 서버측 문제
+(ex. 404, 200)
 
