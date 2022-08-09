@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>0809-01</display-name>
+  <!-- 여는 태그, 닫는 태그로 구성, html처럼 태그로 표현, html보다 규칙이 까다로움 -->
+  <welcome-file-list>
+  	<!-- context root 경로로 연결할 파일 설정 -->
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <context-param>
+  	<param-name>myParamName</param-name> <!-- 이름 지정 -->
+  	<param-value>myParamValue</param-value> <!-- 값 지정 -->
+  </context-param>
+  
+  <context-param> <!-- 여러 개 지정 가능 -->
+  	<param-name>mySetting</param-name>
+  	<param-value>hello</param-value>
+  </context-param>
+</web-app>
