@@ -5,7 +5,8 @@
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%
-	// db 연결과 web페이지 연동을 각각 다른 페이지 에서
+	// world.jsp의 분리 ver
+	// db 연결과 web페이지 출력하는 행동을 각각 다른 페이지 에서
 	// db 연결
 	// select
 	
