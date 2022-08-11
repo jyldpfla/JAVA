@@ -49,4 +49,14 @@
    	<servlet-name>ApplyServlet</servlet-name>
    	<url-pattern>/apply</url-pattern>
    </servlet-mapping>
+   
+   <servlet>
+   	<servlet-name>ViewServlet</servlet-name>
+   	<servlet-class>hello.ViewServlet</servlet-class>
+   </servlet>
+   
+   <servlet-mapping>
+   	<servlet-name>ViewServlet</servlet-name>
+   	<url-pattern>/view</url-pattern>
+   </servlet-mapping>
 </web-app>

@@ -15,8 +15,8 @@ public class IndexServlet extends HttpServlet{
 		
 		if (choice.equals("apply")) {
 			req.getRequestDispatcher("apply.jsp").forward(req,resp);
-		} else if (choice.equals("edit")) {
-			req.getRequestDispatcher("edit.jsp").forward(req,resp);
+		} else if (choice.equals("view")) {
+			req.getRequestDispatcher("./view").forward(req,resp);
 		}
 		
 	}
