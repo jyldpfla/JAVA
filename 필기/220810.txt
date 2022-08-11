@@ -28,7 +28,7 @@
 ▶ httpServlet은 Servlet의 자식
 ▶ web.xml에서 
 	<servlet> : name태그엔 아무거나, class 태그에는 servlet파일 만들어둔 패키지명.파일명
-	<servlet-mapping> : name태그에는 위 이름 그대로, url-pattern에는 /문자열 
+	<servlet-mapping> : name태그에는 위 이름 그대로, url-pattern에는 /문자열 (/문자열.문자열도 가능)
 	-> web.xml있는 프로젝트 다시 서버 구동하고 주소 뒤에 url-pattern에 써준 거 그대로 쓰면 servlet파일 내용 출력
 - servlet파일은 위치가 따로 없으므로 web.xml에서 위처럼 주소를 설정해주어야함
 ▶ servlet container : servlet을 적재하고 있는 공간, tomcat을 이름
