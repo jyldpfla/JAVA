@@ -1,0 +1,61 @@
+● servlet에서 service 메소드는 잘 쓰지 않음 -> dopost(post 형식 request), doget(get 형식 request) 메소드 override
+- doget, dopost메소드를 사용하면 service방식으로 넘어가서 실행되고, service는 실제로 override해서 사용하지 x
+- service는 요청이 오면 방식에 관계없이 처리하므로 사용 x, doGet/doPost는 요청방식에 맞게 동작을 구현하기 위해서 이 메소드를 사용
+=====>>>>>>>>>>>>>>>>>>>> override해둔 service 메소드가 있으면 service메소드가 먼저 실행되므로 doGet/doPost가 실행되지 않으므로 지워줘야 doGet/doPost가 실행될 수 있음
+- get은 흐름을 이어주므로 무조건 정의해주는 것이 좋음
+	-> 사용자가 주소값으로 요청보내면 제대로 된 경로로 이동하도록 설정해줌
+▶ doGet() : 경로 이동할 수 있도록 설정, doPost는 비워두거나 doGet메소드를 이용하도록 메소드 써주기 or resp.getStatus(405)
+	- 405 : 해당 주소에 요청을 보낸 방식이 허용되지 않음을 알려줌
+▶ dopost() : service메소드에 넣었던 내용 그대로 옮기면 됨, doGet에는 제대로된 경로로 이동할 수 있도록만 써주기
+▶ init() : 서블릿이 없으면 한 번 만들고 계속 사용하는데, 그 때 호출되는 메소드
+	- ServletConfig : 생성할 때 필요한 설정들이 담겨있음 (init의 parameter)
+	- 생성 시 설정 해주기 : @WebServlet(initParams = @WebInitParam(name="", value=""))
+	- web.xml에선 <servlet> 안에서 설정 가능
+	- <init-param>
+   		<param-name>paramname1</param-name>
+   		<param-value>paramvalue1</param-value>
+   	   </init-param>
+- doGet / doPost중에서 정해두지 않은 방식으로 요청이 들어오면? setStatus(405);
+
+
+● @WebServlet(name = "", urlPatterns = "")
+: web.xml에 servlet 주소 지정해주던걸 servlet페이지에서 지정하는 방법, servlet 등록을 간단히 할 수 있는 방법
+- 똑같은 주소에 mapping 불가
+- loadOnStartup = int값 : server가 구동될 때부터 servlet이 만들어지도록 함(int값 : 여러 servlet이 있을 때 순서 지정해서 그 순서로 구동, 없으면 순서x)
+	- web.xml에선 <servlet> 안에서 설정 가능
+   	<load-on-startup>2</load-on-startup>
+* annotation은 compile에 동작하는 것, 실행 시 동작하는 것으로 나뉨
+- @override는 compile시 동작
+
+● postman 
+: 브라우저보다 다양한 형식으로 요청을 보낼 수 있는 웹 이용 방식
+- 검색 후 window 64-bit 다운받으면 됨 + 가입
+- 탭 workspaces - my workspace - 아래 탭에서 + 클릭 - 웹사이트 주소 검색 하면 나옴(주소 입력창 옆 combobox에서 요청방식 설정 가능) -> 아래에서 제대로 응답 받으면 200, 아니면 405등의 상태값 보내줌
+▶ dao로 db에 값 들어가는 servlet창에서 params에서 key값에 name지정한 것, value에 넣고싶은 값 넣어주고 send하면 db에 값이 들어감
+▶ servlet 주소 입력하면 jsp로 만들어둔 창 출력 가능
+- post형식은 web-browser에서 테스트하기 어려우므로 postman에서 테스트, 확인하면 유용
+- 페이지 save하면 나중에 쓰기 편함
+
+● error page
+-> 사용자에게 필요한 정보만 남기고, 사용자가 보기 편하도록 error page설정
+① error가 났을 때 보여줄 페이지 page directive에 errorpage임을 써둘 수 있음 -> <%@ page isErrorPage="true" %>
+② error가 났을 때 보여줄 페이지를 내가 만든 페이지에 연결 -> <%@ page errorPage = error났을 때 보여줄 페이지명" %>
+	- error가 발생하면 forward가 일어나서 request 그대로 유지한 채로 창이 넘어감
+▶ 없는 페이지를 찾을 때 - 404
+ error가 났을 때 보여줄 페이지만들고 web.xml에서 <error-page>안에 <error-code>, <location>(페이지 위치) 지정해두면 설정 가능
+▶ error 종류별 만들기
+① web.xml에서 <error-page>안에 <exception-type>, <location>(페이지 위치) 지정해두기
+② servlet 만들기 : java resources - javapackage,classname 지정 next url mappings location에 지정한 이름대로 수정해주기, 원하는 메소드만 클릭하고 finish, 메소드 만들어주면 됨
+
+▶ cookie 
+: 서버가 응답을 할 때 사용자에게 cookie를 담아서 보내주는데, browser에서는 받은 cookie로 어떤 값을 받아서 저장하라고 했는지 보고 관리 해줌
+- 서버가 기억하라고 명령하면, 같은 동작을 할 때마다 그 값을 가지고 감
+- google - 설정 : 개인정보 및 보안 - 쿠키 - 쿠키 및 기타 사이트 데이터 - 모든 쿠키 및 사이트 데이터 보기 - localhost 검색하면 내가 만든 cookie 보임
+▶ cookie 삭제 : 기간이 만료되었을 때 cookie가 삭제됨 -> 만료되었다고 알려주면 삭제됨!
+ex.
+Cookie c2 = new Cookie("korname", ""); // 삭제될 거라서 보통 value ""빈문자열로 둠
+c2.setMaxAge(0); // 0으로 주면 삭제, 그 외 숫자는 만료기간 설정
+// 초 단위로 기간 설정 가능 (ex. 3600 : 1시간)
+resp.addCookie(c2);
+
+- 브라우저에서 드러나므로 민감한 정보 들어가선 x, 사용자가 쿠키를 차단할 수도 있음 => 쿠키를 차단한 사용자에게 물어봐서 허용받음(쿠키가 필요한 사이트면 허용하도록 명시해줄 것) 
