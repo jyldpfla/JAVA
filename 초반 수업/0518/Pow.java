@@ -1,0 +1,12 @@
+import java.util.Scanner;
+
+public class Pow {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("정수 하나 입력해주세요: ");
+		int x = scan.nextInt();
+		
+		System.out.println("제곱값: " + (x * x));
+	}
+}
