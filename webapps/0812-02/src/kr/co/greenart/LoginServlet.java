@@ -43,6 +43,12 @@ public class LoginServlet extends HttpServlet {
 
 				resp.addCookie(c);
 			}
+			Cookie c2 = new Cookie("loginok", "ok");
+			// 로그인이 잘 됐음을 알리는 임의의 이름과 값을 전달
+			// 이 쿠키값으로 로그인 성공여부를 확인 가능
+			
+			resp.addCookie(c2);
+			
 			req.getRequestDispatcher("ok.jsp").forward(req, resp);
 		} else {
 			// 실패
