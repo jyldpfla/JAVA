@@ -36,6 +36,11 @@
   	<location>/needlogin.jsp</location>
   </error-page>
   
+  <error-page>
+  	<exception-type>java.lang.RuntimeException</exception-type>
+  	<location>/errorRuntime.jsp</location>
+  </error-page>
+  
   <filter>
 	<filter-name>LoginFilter</filter-name>
 	<filter-class>kr.co.greenart.LoginFilter</filter-class>

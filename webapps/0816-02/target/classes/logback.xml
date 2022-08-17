@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+  <!-- 로그백에서 지원하는 console에서 기록하는 방식, STDOUT이라고 이름 지어줌 -->
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%date [%thread] %-5level %logger{36} - %msg%n</pattern>
+      <!-- 기록 형식 설정 -->
+      <!-- %d{HH:mm:ss.SSS} : 시간  -->
+      <!-- %msg%n : 줄바꿈 -->
+      <!-- %date : 날짜 -->
+    </encoder>
+  </appender>
+  
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+  <!-- 파일로 기록하는 방식 -->
+    <file>d:/logs/logback.log</file>
+    <!-- 로깅을 통해 남기는 파일명, 대개 log라는 확장자 사용 -->
+    <append>true</append>
+    <!-- set immediateFlush to false for much higher logging throughput -->
+    <immediateFlush>true</immediateFlush>
+    <!-- flush를 바로 호출할건지 -->
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="debug">
+  <!-- 어떤 레벨부터 출력할건지 물어보는 것, debug : 제일 낮은 단계부터(즉, 모든 메세지 출력), info면 debug 안나옴 -->
+    <appender-ref ref="STDOUT" />
+    <!-- 기록 남길 때 뭘로 쓸 건지 -> debug 이상의 것들은 console 출력하는걸로 하겠다! -->
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>

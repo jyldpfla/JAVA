@@ -24,6 +24,7 @@ public class LoginFilter implements Filter {
 		Object loginid = session.getAttribute("loginid");
 		// 원래흐름
 		if (loginid != null) {
+			System.out.println("로그인 확인되었습니다. 게시판 목록으로 forward합니다.");
 			chain.doFilter(req, resp);
 		} else {
 			System.out.println("로그인 되지 않은 유저.");
