@@ -42,7 +42,8 @@
 ▶ HttpSessionBindingListener: 세션에 attribute값을 심고, 수정할 때
 
 ● Connection pool : 객체를 여러 개 만들어두고 계속해서 필요할 때 쓰고 반납하는 방식
+	- ex. db connection 매번 만들고 다 쓰면 닫기 -> 필요할 때 꺼내 쓰기
 - 구현을 하진 않고, 데이터 커넥션 풀 -> appache common dbcp2
-- appache common dbcp2 검색 - org.apache.commons » commons-dbcp2 - Maven Repository 클릭 - 2.9.0 jar 다운
+- apache common dbcp2 검색 - org.apache.commons » commons-dbcp2 - Maven Repository 클릭 - 2.9.0 jar 다운
 - jar파일 받은 곳에서 Compile Dependencies - logging, object pool(왼오 관계x) 새탭열기 - 두 개 다 jar 다운
 
