@@ -1,0 +1,7 @@
+● dynamic web project - Deployment Descriptor에서 filter mapping 어디 되어있는지등 알 수 있음
+
+● Class.forName() : ()안의 것을 투영(reflection)해서 객체(생성자가 무엇인지, 필드가 뭐가 있는지등을 다 아는 객체를 생성)를 만드는 것
+
+* 유효범위(입력값 검증) 확인하는 스타일이 달라서 알기 어려움 -> 회사 게시판 코드 해석시에 유효범위를 왜 설정했는지에 대한 이유를 알기 어려우므로 질문해야함!
+
+● 예외객체를 implements해서 예외객체를 만드는 이유 : 해당 타입에 대한 errorpage를 만들 수 있고, 예외의 이름을 지어둬서 어떤 error인지 더 한 눈에 알아보기 쉬움
