@@ -25,7 +25,7 @@ public class ChangePasswordService {
 			if (!member.matchPassword(curPwd)) { // 현재 비밀번호와 다르면
 				throw new InvalidPasswordException();
 			}
-			member.changePassword(curPwd);
+			member.changePassword(newPwd);
 			memberDao.update(conn, member);
 			conn.commit();
 		} catch (SQLException e) {

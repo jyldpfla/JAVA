@@ -16,8 +16,8 @@ public class LoginService {
 			if (member == null) {
 				throw new LoginFailException();
 			}
-			if (!member.matchPassword(password)) {
-				throw new LoginFailException();
+			if (!member.matchPassword(password)) { // 비밀번호가 다르면
+				throw new LoginFailException();	// 예외로 알려줌
 			}
 			return new User(member.getId(), member.getName());
 		} catch (SQLException e) {

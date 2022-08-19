@@ -14,7 +14,7 @@ import mvc.command.CommandHandler;
 public class JoinHandler implements CommandHandler {
 	
 	private static final String FORM_VIEW = "/WEB-INF/view/joinForm.jsp";
-	private JoinService joinService = new JoinService();
+	private JoinService joinService = new JoinService(); // 의존성 -> 객체 생성
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -29,7 +29,7 @@ public class JoinHandler implements CommandHandler {
 	}
 	
 	private String processForm(HttpServletRequest req, HttpServletResponse res) {
-		return FORM_VIEW;
+		return FORM_VIEW; 
 	}
 	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
@@ -46,7 +46,7 @@ public class JoinHandler implements CommandHandler {
 		System.out.println("맵 객체 확인" + errors);
 		
 		if (!errors.isEmpty()) {
-			return FORM_VIEW;
+			return FORM_VIEW; // 흐름을 끊고 다시 입력하는 화면으로 돌려보냄
 		}
 		
 		try {

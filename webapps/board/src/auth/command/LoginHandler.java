@@ -52,14 +52,14 @@ public class LoginHandler implements CommandHandler {
 		
 		try {
 			User user = loginService.login(id, password);
-			req.getSession().setAttribute("authUser", user);
+			req.getSession().setAttribute("authUser", user); // session으로 login 관리
 			res.sendRedirect(req.getContextPath() + "/index.jsp");
 			return null;
 		} catch (LoginFailException e) {
 			errors.put("idOrPwNotMatch", Boolean.TRUE);
 			return FORM_VIEW;
 		}
-	}
+	} 
 	
 	private String trim(String str) {
 		return str == null ? null : str.trim();

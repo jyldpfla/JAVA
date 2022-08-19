@@ -16,20 +16,21 @@ public class ChangePasswordHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/WEB-INF/view/changePwdForm.jsp";
 	private ChangePasswordService changePwdSvc = new ChangePasswordService();
 	
+	// 요청 제어
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if (req.getMethod().equalsIgnoreCase("GET")) {
+		if (req.getMethod().equalsIgnoreCase("GET")) { // 요청이 어떤 방식이 들어왔는지 확인
 			return processForm(req, res);
 		} else if (req.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(req, res);
-		} else {
+		} else { // get, post가 아닌 다른 방식이면,
 			res.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			return null; 
 		}
 	}
 	
 	private String processForm(HttpServletRequest req, HttpServletResponse res) {
-		return FORM_VIEW;
+		return FORM_VIEW; // 주소값을 string으로 return
 	}
 	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {

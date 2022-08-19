@@ -37,10 +37,11 @@ public class JoinRequest {
 	}
 	
 	public void validate(Map<String, Boolean> errors) {
+		// 필드들을 checkEmpty메소드에 전달해서 값이 비어있는지 확인함 -> 유효범위 확인
 		checkEmpty(errors,id,"id");
 		checkEmpty(errors, name, "name");
 		checkEmpty(errors, password, "password");
-		checkEmpty(errors, confirmPassword, "confirmPassword");
+		checkEmpty(errors, confirmPassword, "confirmPassword"); // 비밀번호 확인
 		if(!errors.containsKey("confirmPassword")) {
 			if(!isPasswordEqualToConfirm()) {
 				errors.putIfAbsent("notMatch", Boolean.TRUE);
@@ -51,7 +52,7 @@ public class JoinRequest {
 	public void checkEmpty(Map<String, Boolean> errors, String value, String fieldName) {
 		System.out.println(value);
 		if (value == null || value.isEmpty()) {
-			errors.put(fieldName, Boolean.TRUE);
+			errors.put(fieldName, Boolean.TRUE); // true면 문제가 있는 것 -> errors라는 map에 값 들어감
 		}
 	}
 }

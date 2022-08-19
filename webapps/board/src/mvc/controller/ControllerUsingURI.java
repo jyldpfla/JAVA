@@ -36,11 +36,12 @@ public class ControllerUsingURI extends HttpServlet {
 			String handlerClassName = prop.getProperty(command);
 			try {
 				Class<?> handlerClass = Class.forName(handlerClassName);
-				// <?> : generic, ?는 아무것도 아닌형, object형과 비슷하지만 다름
+				// <?> : generic, ?는 아무것도 아닌형(타입이 정해져있지 않음), object형과 비슷하지만 다름
 				// Class.forName() : ()안의 것을 투영(reflection)해서 객체를 만드는 것
-				// 클래스파일을 객체화
+				// 클래스파일을 객체화 -> 생성자가 무엇인지, 필드가 뭐가 있는지등을 다 아는 객체가 생성
+				// 인스턴스를 만드는게 아니라, 객체를 그대로 만드는 것(그래서 필요하면 추가도 가능)
 				CommandHandler handlerInstance = (CommandHandler) handlerClass.newInstance();
-				// instance생성 가능 -> loginservlet, logoutservlet 인스턴스 생성하는데
+				// 투영한 것으로 instance생성 가능 -> loginservlet, logoutservlet 인스턴스 생성하는데
 				// , commandhandler를 부모로 implements하므로 다운캐스팅할 때 loginservlet과 logoutservlet이 제대로 implements 되어있지 않으면
 				// logout을 형변환하려고 했는데 못해서 오류가 남
   
@@ -49,6 +50,7 @@ public class ControllerUsingURI extends HttpServlet {
                 // 만들 때 로그아웃의 형이 logouthandler형이라서 오류가 난 것이다
                 // 즉 implements commandhandler를 안해서 형이 다르므로 다운이 안돼서 오류
 				commandHandlerMap.put(command,handlerInstance);
+				// 맵에 넣어서 new instance안하고 필요할 때마다 key값으로 불러오려고 map에 넣음
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 				throw new ServletException(e);
 			}
@@ -74,7 +76,7 @@ public class ControllerUsingURI extends HttpServlet {
 		}
 		String viewPage = null;
 		try {
-			viewPage = handler.process(request, response);
+			viewPage = handler.process(request, response); // handler에서 넘어온 값이 viewPage값으로 들어감(주소값이면 주소값이 들어가서 아래 흐름 따라 주소로 이동하게 됨)
 		} catch (Throwable e) {
 			throw new ServletException(e);
 		}
