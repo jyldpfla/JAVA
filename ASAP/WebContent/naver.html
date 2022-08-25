@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Naver</title>
+    <style>
+      body {
+        margin: 0 130px 0 130px;
+      }
+      form {
+        float: right;
+        padding-top: 20px;
+      }
+      select {
+        border: 1px solid lightgray;
+        padding: 5px 12px 5px 2px;
+      }
+      
+      header {
+        padding-top: 100px;
+      }
+      h1 {
+        text-align: center;
+      }
+      ul {
+        list-style: none;
+      }
+      .tabmenu {
+        width: 450px;
+        height: 300px;
+        border: 1px solid lightgray;
+        margin: 0 auto;
+      }
+      .tab_item {
+        padding: 0 30px;
+        height: 100px;
+        border: 3px solid #333333;
+      }
+      input[name="tab_item"] {
+        display: none;
+      }
+      .tab_content {
+        /*visibility: visible;*/
+        display: none !important;
+      }
+      #tab1:checked ~ #login_content,
+      #tab2:checked ~ #disposable_number,
+      #tab3:checked ~ #qr_code {
+        /*visibility: visible;*/
+        display: block !important;
+        /*!important : 무조건 실행되게 하는 꼼수같은 명령*/
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <select name="" id="">
+        <option value="korean" selected>한국어</option>
+        <option value="english">english</option>
+        <option value="chines">chinese</option>
+        <option value="japanese">japanese</option>
+      </select>
+    </form>
+    <header>
+      <h1><img src="images/naver.png" alt="네이버" /></h1>
+    </header>
+    <div class="tabmenu">
+      <input id="tab1" type="radio" name="tab_item" checked />
+      <label class="tab_item" for="tab1">ID 로그인</label>
+      <input id="tab2" type="radio" name="tab_item" />
+      <label class="tab_item" for="tab2">일회용 번호</label>
+      <input id="tab3" type="radio" name="tab_item" />
+      <label class="tab_item" for="tab3">QR코드</label>
+      <div class="tab_content" id="login_content">
+        <input type="text" name="" id="" placeholder="아이디" />
+        <input type="text" name="" id="" placeholder="비밀번호" />
+        <input type="button" value="로그인" />
+      </div>
+      <div class="tab_content" id="disposable_number">일회용번호</div>
+      <div class="tab_content" id="qr_code">큐알코드</div>
+    </div>
+  </body>
+</html>
