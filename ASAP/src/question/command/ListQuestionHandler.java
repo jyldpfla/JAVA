@@ -9,21 +9,24 @@ import javax.servlet.http.HttpServletResponse;
 import mvc.command.CommandHandler;
 import question.model.Question;
 import question.service.QuestionPage;
-import question.service.QuestionService;
+import question.service.ListQuestionService;
 
 public class ListQuestionHandler implements CommandHandler {
-	QuestionService qService = new QuestionService();
+	ListQuestionService qService = new ListQuestionService();
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String pageNoVal = req.getParameter("pageNo");
-		int pageNo = 1;
+		String topic = req.getParameter("topic_id");
+		int topic_id = Integer.parseInt(topic);
+		
+		String pageNoVal = req.getParameter("pageNum");
+		int pageNum = 1; // pageNo가 null이면 1로 지정
 		if (pageNoVal != null) {
-			pageNo = Integer.parseInt(pageNoVal);
+			pageNum = Integer.parseInt(pageNoVal);
 		}
-		QuestionPage questionPage = qService.getQuestionPage(1, pageNo);
+		QuestionPage questionPage = qService.getQuestionPage(topic_id, pageNum);
 		req.setAttribute("questionPage", questionPage);
-		return "/WEB-INF/view/questionpage.jsp";
+		return "/WEB-INF/view/listQuestion.jsp";
 	}
 	
 }
