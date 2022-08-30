@@ -20,9 +20,25 @@ public class QuestionDAO {
 		
 		return new Question(question_id, topic_id, question_text);
 	}
+	// 전체 질문 개수 구하는 메소드
+	public int selectCount(Connection conn) throws SQLException {
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT COUNT(*) FROM question_t");
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(stmt);
+		}
+		return 0;
+	}
 	
 	// 토픽 별 전체 질문 개수 구하는 메소드
-	public int selectCount(Connection conn, int topic_id) throws SQLException {
+	public int selectCountByTopic(Connection conn, int topic_id) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -75,6 +91,44 @@ public class QuestionDAO {
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
+		}
+		return null;
+	}
+	
+	// topic 별 첫 질문 question_id값 받아오기
+	public int selectFirstQ(Connection conn, int topic_id) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement("SELECT question_id FROM question_t WHERE topic_id = ? limit 1");
+			pstmt.setInt(1, topic_id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		return topic_id;
+	}
+	
+	// hidden question 받아오기
+	public List<Question> selectHidden(Connection conn, int topic_id) throws SQLException {
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<Question> hiddenQuestion = new ArrayList<>();
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM question_t WHERE hidden = 'hidden'");
+			while (rs.next()) {
+				Question hiddenQ = new Question(rs.getInt("question_id"), rs.getInt("topic_id"), rs.getString("question_text"), rs.getString("hidden"));
+				hiddenQuestion.add(hiddenQ);
+				return hiddenQuestion;
+			}
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(stmt);
 		}
 		return null;
 	}

@@ -19,10 +19,10 @@ public class OptionDAO {
 		int question_id = rs.getInt("question_id");
 		String option_text = rs.getString("option_text");
 		String group_text = rs.getString("group_text");
-		
+
 		return new Option(option_id, question_id, option_text, group_text);
 	}
-	
+
 	// 총 답변 개수 구하기
 	public int selectCount(Connection conn) throws SQLException {
 		Statement stmt = null;
@@ -39,7 +39,7 @@ public class OptionDAO {
 		}
 		return 0;
 	}
-	
+
 	// topic별 총 답변 개수 구하기
 	public int selectCountByTopic(Connection conn, int topic_id) throws SQLException {
 		PreparedStatement pstmt = null;
@@ -58,28 +58,46 @@ public class OptionDAO {
 		return 0;
 	}
 	
-	// 질문별 답변 list에 담기
-	// questionCount는 service에서 QuestionDao Question selectCount로 값 받아올 것! (topic별로 나누어서 count된 값)
-	// 질문(key)이랑 답변(value, 여기서 만든 List) Mapping하기
-	public Map<Integer, List<Option>> selectByQuestionId(Connection conn, int questionCount) throws SQLException {
+	// question_id를 db에서 가져와서 selectOptionByQuestion의 parameter 값으로 넣어줘서 list부터 생성하고 map에 담기
+	// topicCount : 토픽 아이디별 질문 개수
+	// topicStart : 토픽 아이디 시작 개수
+	public Map<Integer, List<Option>> selectQAndO(Connection conn) throws SQLException {
+		Statement stmt = null;
+		ResultSet rs = null;
+		Map<Integer, List<Option>> QAndOMap = new HashMap<>();
+		List<Option> oList = new ArrayList<>();
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT DISTINCT question_id FROM option_t WHERE option_id IS NOT NULL");
+			while (rs.next()) {
+				OptionDAO odao = new OptionDAO();
+				oList = odao.selectOptionByQuestion(conn, rs.getInt(1));
+				QAndOMap.put(rs.getInt(1), oList);
+			}
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(stmt);
+			}
+		return QAndOMap;
+	}
+	
+	// parameter 값으로 question_id를 받아오기
+	// question_id에 맞는 option값이 여러개 나오는걸 list에 담기
+	public List<Option> selectOptionByQuestion(Connection conn, int question_id) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<Option> optionList = new ArrayList<>();
-		Map<Integer, List<Option>> qestionAndChoices = new HashMap<>();
-		int i = 1;
-		
+		List<Option> oList = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement("SELECT * FROM option_t WHERE question_id = ?");
+			pstmt.setInt(1, question_id);
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				pstmt.setInt(1, i);
-				optionList.add(resultMapping_S(rs));
-				qestionAndChoices.put(i, optionList);
-				i++;
+				oList.add(resultMapping_S(rs));
 			}
-			return qestionAndChoices;
-		} finally { 
+		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
+		return oList;
 	}
 }

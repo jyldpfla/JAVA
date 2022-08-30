@@ -38,10 +38,15 @@ h1 {
 	<!-- 질문 출력 -->
 	<c:forEach var="question" items="${questionPage.question_context}">
 		<p class="question">${question.question_text}</p>
+		<p>${question.question_id}</p>
+	<%-- <c:if test="${question.question_id == optionList.}"></c:if> --%>
+	</c:forEach>
+	<c:forEach var="option" items="${optionList}">
+		<p>${option.value}</p>
 	</c:forEach>
 	<div class="choice">
 		<div class="leftchoice">
-			<p> 이렇게 저렇게 선택지1 </p>
+			<%-- <p> ${optionList.get(1)} </p> --%>
 		</div>
 		<div class="rigthchoice">
 			<p> 이렇게 저렇게 선택지2 </p>
