@@ -28,8 +28,9 @@ public class ListQuestionService {
 			// 시작행은 0번 기준 (pageNum - 1) * size ( 3페이지를 요청하면 (3 - 1) * 6인 12행부터(13번째 레코드부터)
 			
 			String topic = qdao.selectTopic(conn, topic_id).getTopic();
+			int question_id = qdao.selectTopic(conn, topic_id).getQuestion_id();
 			
-			return new QuestionPage(topic_id, topic, total, pageNum, size, question_context);
+			return new QuestionPage(topic_id, topic, question_id, total, pageNum, size, question_context);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

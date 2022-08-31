@@ -8,7 +8,7 @@
 </head>
 <body>
 	<p>request 보낼려고 만든 페이지</p>
-	<form action="question/list.do">
+	<form action="question/list.do" method="post">
 		<p>request 값으로 topic_id 받아올 거임!</p>
 		<input type="text" name="topic_id">
 		<input type="submit">
