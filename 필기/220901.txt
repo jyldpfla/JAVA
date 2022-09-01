@@ -1,0 +1,78 @@
+● spring framework
+- java 개발에 있어 일정한 툴을 제공
+- 오픈소스, 프레임워크 안에 모듈화 되어있어서 모듈로 사용 가능, 웹 MVC 기능(MVC 패턴 이용 가능) 제공
+- Jdbc로 작업했던 동작들을 쉽게 할 수 있도록 data access 기능도 제공
+- core(핵심 기능) -> dependency injection : 개발자가 관리하던 의존성을 라이브러리가 관리(의존성 역전)
+	-> 기존 방식 : class가 동작하려면 dao기능을 사용하기 위해선 dao 객체가 field로 존재해야하므로 의존성이 존재하게 됨 -> 개발자가 관리하는 방식
+- spring boot vs spring framework : 둘 다 기능은 같지만, framework가 꽤 오랫동안 유지된 방식이라 과거의 방식이 유지되어 있음(설정에 손이 많이 감) / boot는 설정이 조금 더 손쉬워짐(간소화된 ver)
+-> 장점 : 객체의 생명주기 등의 관리를 라이브러리가 하므로 개발자에게 소요되는 시간을 줄여줄 수 있음(쉽게 사용 및 관리를 위해)
+
+▶ spring plugin 설치 
+- sts(spring tool suite) : eclipse 배포해주는 것
+	Spring Tools 4는 boot, sptring tools 3이 framework
+- sts 검색 - 사이트 아래로 scroll - tools 3 wiki - full distribution on Eclipse 4.16(우리 사용버전에 맞는 것 다운해야함) - zip 클릭 (다운) - 원하는 폴더에 압축 풀기 - 폴더 들어가면 sts-~~가 eclipse - sts.exe 실행 - preferences encoding utf-8로 설정
+**** 이건 학원에서만 : new - legacy project - configure templates - springdefaults edit - url을 https://green424minee.github.io/sts3-legacy-defaults-descriptors/descriptors-3.0.xml 요로케 바꿔주기
+
+▶ 프로젝트 만들기 - new - legacy project - 프로젝트명 작성 + mvc project 클릭 - next package명 입력 - finish
+- src/main/java : java class file 저장
+- src/main/resources : java class 파일 외 resources에 필요한 파일
+- src/test/java : test를 위한 폴더
+
+▶ 프로젝트 실행해보면 home.jsp 실행됨, web.xml에 등록된 servlet으로 실행되는데 그 servlet은 libraray에서 생성한 servlet(라이브러리에서 servlet 관리) => servlet이 forwarding을 시켜줌 
+-> mapping이 안돼있는데 어떻게? 
+homecontroller를 사용하는(객체 만들어서 의존시키는 부분 없음) 부분 없음 -> spring에서 생성해서 home.jsp로 값을 넘기는 것!
+
+
+===> spring은 이러한 instance(객체)들을 어떻게 다루는지? 객체를 다루기 위해 어떤 조작을 해야하는지 살펴보자아~
+	spring에 java 객체를 맡기고 필요할 때마다 가져올 것
+	=> IOC(inversion of controll)에 java 객체들을 bean이라는 이름으로 담고, 필요할 때 bean을 꺼내서 의존성을 넣어줌
+
+● bean을 관리해달라고 IOC에 넣고 필요할 때 꺼내쓰는 연습해보기
+▶ pom.xml - dependencies 안에 spring-context => 객체 관리해주는 아이(ioc container를 포함하고 있음)
+
+● maven 프로젝트 만들어보기
+- java project 생성 - covert to maven - group id(패키지명), artifactid 설정 - maven mavenrepository에서 spring core, spring context, spring beans 최신버전 코드 복사해서 pom.xml dependencies에 넣기(세 개 버전은 같아야 함)
+
+● 라이브러리에서 객체 관리 
+- src 우클릭 - new - spring bean configure file - 이름 지정 finish => xml파일 생성 : bean, 기타 설정을 xml로 관리함
+▶ bean 생성 : beans 태그 안에 bean class, id 지정해서 bean 생성 (01 ioc 폴더)
+-> 모든 객체를 관리 x, 관리를 해야하는 것만 관리 맡기는 것
+▶ 싱글턴 패턴 : 하나의 인스턴스로 객체를 관리하는 것
+- scope=prototype으로 불러올 때마다 인스턴스를 만들어내는 것은 라이브러리 관리가 아닌 개발자가 일생동안 관리해주어야함
+- 의존성을 만드려면 생성자나 setter가 필요
+
+
+▶ annotation 기반 bean 등록 (02 ioc-anno 폴더)
+myconfig.xml - namespaces에서 context 체크하고 source에 돌아오면 context 태그 사용 가능
+-> myconfig.xml에서 context 태그 사용해서 패키지명 등록해주면 annotation @Component가 붙어있는 객체를 찾아 bean으로 등록해줌
+- 의존성이 필요한 객체에 필요한 객체를 bean으로 등록해뒀으면 필드에 @autowired 가능
+
+Spring framework의 궁극적 사용 목표 -> 객체 관리
+객체의 의존성과 라이프사이클을 관리할 수 있도록 IOC container에 객체를 관리 -> IOC 관리를 어떻게 할지 ① xml파일의 설정, ② java annotaion을 통한 설정을 통해 알려줌 -> IOC에 객체를 Bean으로 저장해서 관리 -> bean을 여러개 등록할 수 있고 type이나 id로 객체를 불러와서 사용할 수 있음
++ web.xml에 등록된 servlet을 통해 mapping 
+
+● Spring interface (03 ioc-java-config)
+- interface의 구현체를 찾아서 bean화하고 그 구현체를 줌 
+- 구현체가 2개 이상이면 error가 나므로 @Primary나 id값 설정해주기
+* annotation에 value가 하나면 value 생략 가능
+
+컴포넌트인데 저장소 역할 ->@Repository / 컴포넌트인데 서비스 제공 -> Service
+                                                                                                                     
+class 형태 -> bean으로 등록해서 편하게 사용 가능
+
+▶ ArrayList와 같은 형태를 bean으로 등록하고 싶을 때, 메소드의 형식으로 bean 등록 가능 
+- @Primary는 인터페이스 등장할때 중요해짐!! bean부를때 인터페이스로 부르면 구현체를 들고오니깐 어느 구현체를 들고올지를 정함
+- @Qualifier <- @Autowired할건데 어느애로 들고올건지 정해주는거
+- @Service @Repository @controller 다 같은 @component인데 이름만 다르게 지정한거~    
+
+● 메소드 형식을 bean으로 등록 (03 ioc-java-config)         
+- @Configuration : @Component인데 설정을 가지고 있는 component, xml에 했던 설정을 여기서 할 수 있음    
+▶ Bean이라는 annotation안에 메소드 작성, 메소드 이름 = bean 이름 / bean 타입 = return값 타입 / 등록하고자하는 형태의 객체 = 반환값
+
+●Spring MVC : Model View Controller (hello 폴더)
+웹 개발을 할 때 model, view, contoller에 나누어서 작성할 수 있도록 해줌
+- MVC 패턴을 위해 지원해주는 것들 : Spring은 요청을 받는 servlet을 미리 하나 만들어둠(dispatcher servlet), dispatcher servlet은 사용자의 요청을 전부 받아서 처리하는 흐름을 모두 가짐 -> web application에 필요한 모든 정보를 다 가지고 있음
+	dispatcher servlet : 사용자가 요청한 주소에 따라 처리할 수 있는 handlerMapping이라는 친구(Spring에서 해줌)가 ioc 컨테이너에 요청에 맞는 객체가 bean으로 등록되어있는지 확인 (그림에서 dispatcher servlet request화살표), 있으면 그 controller(bean)에 사용자의 요청을 전달, controller에서 사용자 요청 흐름 제어(처리=handling)하고 결과(view로 가라고) 반환(ModelAndView(controller로 처리=>이 부분은 우리가 만들 것)), 반환된 결과를 가지고 view가 있는지 찾아봄(view resolver), view가 있으면 jsp를 객체로 만들어서 server rendering을 통해 html 문서를 만들어 응답으로 보내줌  ===> 우리는 controller와 view를 만들어줌(이전에는 controller의 servlet을 하나하나 만들었다면, 만들지 않고 controller를 만드는 것이 차이)
+
+▶@Controller : 컴포넌트의 또 다른 이름, 컨트롤러의 역할을 함 (hello폴더 homecontroller.java 확인)
+▶ Controller 만들기 (HelloController(hello.jsp), RequestHandling
