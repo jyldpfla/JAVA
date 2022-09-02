@@ -1,0 +1,24 @@
+* hello/pom.xml <properties>에 <org.springframework-version>5.3.22</org.springframework-version>로 바꿈,
+<java-version>도 바꿔서 plugin에 <groupId>org.apache.maven.plugins</groupId>의 <source>${java-version}</source>
+                    <target>${java-version}</target>도 변경
+
+위처럼 버전 높였을 때 사용 가능한 annotation
+- @GetMapping = @RequestMapping(method=RequestMethod.GET)
+- @PostMapping = @RequestMapping(method=RequestMethod.POST)
+
+● xml 파일로 만들었던 걸 java config로 바꿔보기 (hello폴더 WebInit.java, RootConfig, WebConfig)
+▶ ResourceHandler : 사용자가 요청하는 것을 정적 자원으로의 접근을 막고 dispatcher servlet이 요청을 다 받아옴(mapping 되어있지 않으므로), 정적 자원에 쉽게 접근할 수 있도록 자원 요청을 하면 그대로 자원을 주도록 설정
+	- css나 javascript의 파일등을 관리할 때 편리
+▶ ViewResolvers : dispatcher servlet이 view를 찾기 위해 접근하는 객체
+- 설정 다하고 pom.xml 제외하고 다지우기 -> maven이라 error -> pom.xml에 plugin 추가(필기 확인)
+Maven Plugin War 검색 - Apache Maven WAR Plugin – Introduction 접속 - nav에서 Adding and Filtering External Web Resources 클릭 - <plugin>태그 복사 - pom.xml에 붙여넣기 => web.xml 없어서 경고한 것, 무시하도록 설정한 것
+
+● Controller에서 사용할 수 있는 패턴 (Hello / MappingController.java)
+* https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-methods : 요청할 수 있는 목록 확인 가능
+
+● Controller에서 return할 수 있는 타입 (Hello / ReturnTypesController)
+(Hello / UserController,userForm)
+● 유효성 체크, 유효값 정해주기 (Hello / UserValidator)
+
+● Validator 
+MVNRepository - validator 검색 - Hibernate Validator Engine 6.2.4.Final Maven 코드 복사 - pom.xml 붙여넣기

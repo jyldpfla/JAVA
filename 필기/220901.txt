@@ -75,4 +75,4 @@ class 형태 -> bean으로 등록해서 편하게 사용 가능
 	dispatcher servlet : 사용자가 요청한 주소에 따라 처리할 수 있는 handlerMapping이라는 친구(Spring에서 해줌)가 ioc 컨테이너에 요청에 맞는 객체가 bean으로 등록되어있는지 확인 (그림에서 dispatcher servlet request화살표), 있으면 그 controller(bean)에 사용자의 요청을 전달, controller에서 사용자 요청 흐름 제어(처리=handling)하고 결과(view로 가라고) 반환(ModelAndView(controller로 처리=>이 부분은 우리가 만들 것)), 반환된 결과를 가지고 view가 있는지 찾아봄(view resolver), view가 있으면 jsp를 객체로 만들어서 server rendering을 통해 html 문서를 만들어 응답으로 보내줌  ===> 우리는 controller와 view를 만들어줌(이전에는 controller의 servlet을 하나하나 만들었다면, 만들지 않고 controller를 만드는 것이 차이)
 
 ▶@Controller : 컴포넌트의 또 다른 이름, 컨트롤러의 역할을 함 (hello폴더 homecontroller.java 확인)
-▶ Controller 만들기 (HelloController(hello.jsp), RequestHandling
+▶ Controller 만들기 (HelloController(hello.jsp), RequestHandling)
