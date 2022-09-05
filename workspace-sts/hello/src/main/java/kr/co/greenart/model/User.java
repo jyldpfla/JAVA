@@ -6,6 +6,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 public class User {
+	private int id;
 	// 유효성 검사 필드 위에 써주기!
 	@NotBlank(message = "이름을 입력해주세요") // 공백이거나 비어있으면 error
 	@Size(min = 1, max = 4, message = "이름은 1 ~ 4자 사이여야 합니다.") // 문자열 길이
@@ -14,6 +15,13 @@ public class User {
 	@Max(value = 100, message = "최대값(100)을 초과했습니다.") // 최대값
 	private int age;
 	
+	public User(int id,	String name, int age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+
 	public User(String name, int age) {
 		super();
 		this.name = name;
@@ -21,6 +29,14 @@ public class User {
 	}
 	
 	public User() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
