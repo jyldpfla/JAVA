@@ -1,0 +1,21 @@
+● Spring 파일 db에 넣어보기 (hello / mysql.properties, RootConfig, User.java)
+- MySQL Connector/J » 8.0.30, Apache Commons DBCP » 2.9.0 dependencies에 추가 (hello/pom.xml)
+
+● JUnit : java 개발환경에서 test를 하고자 할 때 쉽게 작성이 가능하도록 도와줌, eclipse 화면에서 보기 편하도록 해줌
+(hello / RootConfig.java, MyFirstTest.java, DataSourceTest.java, JdbcTemplateTest. java, UserRepositoryMySQL.java)
+=> user db 관리
+
+- Java Resources - src - test - java에서 JUnit Test Case(생성 쉽도록 도움) 생성(new junit 4 test) -> class 생성됨(그냥 클래스파일 생성해도 됨)
+- test 메소드에 @Test annotaion 붙이면 됨 ->  junittest로 run해보면 됨
+- 몇 개 테스트 중인지 알 수 있음, x 붙으면 성공하지 못한 test
+▶ test는 실행했을 때 각각의 흐름을 가짐, 서로 영향x
+▶ jspring이 잘 동작되도록 필요한 library : Spring TestContext Framework » 5.3.22(사용하는 spring ver에 맞춰서) 의존성 추가
+- 테스트를 위해서 JUnit을 사용하는데 스프링환경에서 호환을 위해서 사용
+- pom.xml junit ver 4.13.2로 변경
+▶ Spring JDBC » 5.3.22 : jdbc template으로 db 기능 제공  
+
+● db 기능을 활용해 service 하기
+-> mysql구현한 controller 의존성 주입
+=> 의존성 주입을 다르게 하면 다른 저장소를 사용할 수 있음
+
+* service : logic을 가지고 있는 객체
