@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// Repository가 달라져도 service는 그 상태 그대로 구현이 되어야함(기능이 다르므로 영향 x)
 // UserService : 사용자 목록 관리, 추가할 수 있는 기능을 관리하는 객체
 @Service
 public class UserService {

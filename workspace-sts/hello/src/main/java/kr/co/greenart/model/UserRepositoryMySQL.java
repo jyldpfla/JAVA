@@ -20,7 +20,7 @@ public class UserRepositoryMySQL implements UserRepository {
 	private JdbcTemplate JdbcTemplate;
 	private UserRowMapper mapper = new UserRowMapper(); // bean으로 만들어도 되지만, 안에서만 사용할 것이므로
 	
-	private class UserRowMapper implements RowMapper<User> {
+	private class UserRowMapper implements RowMapper<User> { // generic에 원하는 타입 넣기
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			int id = rs.getInt("id");
