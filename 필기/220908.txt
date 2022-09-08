@@ -1,0 +1,21 @@
+배치 작업 : 똑같은 일을 반복할 때 하는 작업
+
+● 웹에 text형태로 띄우기 (CarController.java)
+
+● Json형태로 변환해서 화면에 보여주기(Web API 만들어보기) (CarController.java, CarService) -> view가 없어도 가능
+=> web api(주소와 요청 방식에 따라서) 만들 수 있음 - 주고받는 데이터 양식(json)이 일정해야함
+- maven repository에서 Jackson Databind » 2.13.4 코드 복사 + 라이브러리 의존성 추가
+- spring의 웹 mvc랑 Jackson Databind가 연동되도록 spring에서 설정되어있으므로 의존성 추가하면 이용 가능
+- 현재 유효성 검사 등 빠져있음
+
+- web api를 만든 이유 : 사용자가 주소로 기능 사용하라고 만들어 둔 것 (사용자 = 개발자)
+
+● db작업할 때 mapping하기(Rowmapper)를 쉽게 만들기 (RootConfig, CarRepositoryNamed)
+
+● 사용자 요청 처리하면서 request / session 객체에 담는 것의 차이 -> requestscope : 한 번의 요청 처리할 동안은 유지(요청 처리 끝나면 사라짐), sessionscopr : request보다 좀 더 길게 유지(사용자 한 명이 여러번의 요청을 보낼 때 한 명의 사용자에 대한 정보를 계속해서 관리하기 위함)
+-> browser 하나당 하나의 session이 만들어짐 (처음오면 새 session 만들어서 응답으로 cookie 보내주고, 다시 오면 session id 를 통해 재방문인 것을 알 수 있음)
+=> spring에서의 session (SessionController, TestModelSession
+- model session은 실제 session과는 조금 다르게 돌아감!
+
+● flashattribute ( FlashAttributeController.java, flashview.jsp
+
