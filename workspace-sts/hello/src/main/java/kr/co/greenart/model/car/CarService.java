@@ -11,6 +11,23 @@ public class CarService {
 	@Autowired
 	private CarRepository repo;
 	
+	public List<Car> list() {
+		return repo.getAll();
+	}
+	
+	public Car getById(int id) {
+		return repo.getById(id);
+		// 없는 값이면 error 뜸
+	}
+	
+	public int add(Car car) {
+		return repo.add(car);
+	}
+	
+	public int update(Car car) {
+		return repo.update(car);
+	}
+	
 	// 자동차 목록을 전달받아 주기
 	@Transactional // 트랜잭션이 필요하다고 알려줌, rootconfig에 등록된 transaction 찾아서 관리
 	// 여기서 runtimeerror발생 시 rollback해줌

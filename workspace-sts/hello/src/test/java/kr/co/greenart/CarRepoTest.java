@@ -41,6 +41,7 @@ public class CarRepoTest {
 //		repository.add(new Car(0, "테스트 자료" + r.nextInt(10000), r.nextInt(10000)));
 //		repository.add(new Car(0, "테스트 자료" + r.nextInt(10000), r.nextInt(10000)));
 	}
+	// afterclass도 존재
 	
 	@Test
 	public void create() {

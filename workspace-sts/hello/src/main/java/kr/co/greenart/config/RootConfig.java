@@ -10,13 +10,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @PropertySource("classpath:kr/co/greenart/config/mysql.properties") // 내가 읽고자 하는 properties의 경로 
-@ComponentScan("kr.co.greenart.model.car") // 컴포넌트 스캔 시켜서 사용하기 위해
+//@ComponentScan("kr.co.greenart.model.car") // 컴포넌트 스캔 시켜서 사용하기 위해
 // 객체 테스트하려면 객체가 있어야함 -> bean으로 등록하려면, 읽고 있는 RootConfig파일에 bean으로 등록하거나,
 // 컴포넌트 표시해두고 스캔해서 알아서 bean으로 등록되도록
 @EnableTransactionManagement // 트랜잭션 사용하기 위한 annotation -> 관리자 등록 필요(bean으로 등록)
@@ -58,6 +59,13 @@ public class RootConfig {
 	@Autowired
 	public PlatformTransactionManager txManager(DataSource ds) {
 		return new DataSourceTransactionManager(ds);
+	}
+	
+	// mapping 쉽게하기 위해 bean 생성 (+ componentscan 주석처리함)
+	@Bean
+	@Autowired
+	public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource ds) {
+		return new NamedParameterJdbcTemplate(ds);
 	}
 	
 }
