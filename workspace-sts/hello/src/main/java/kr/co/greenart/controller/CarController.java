@@ -20,7 +20,7 @@ import kr.co.greenart.model.car.Car;
 import kr.co.greenart.model.car.CarService;
 
 @Controller
-@RequestMapping("/car")
+@RequestMapping("/car") // 공개 mapping 주소 만들기
 @ResponseBody // controller에서 응답하는 것은 모두 responsebody에 담겨서 감
 public class CarController {
 //	@GetMapping
@@ -55,6 +55,7 @@ public class CarController {
 		service.add(car);
 		
 		return ResponseEntity.ok("{ \"result\" : \"ok\" }");
+		// ResponseEntity.ok : 응답 ok(200) 보내기
 	}
 	
 	@PutMapping // 추가를 post로 하고 위에 get도 있으므로 다른 방식으로 수정 요청하기

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+// 정보를 갖고 있는 객체에 대해 정보를 얼마나 활용하고 가지고 있을지 구체적으로 지정
 @Controller
 @RequestMapping(value = "/session", produces = "text/plain; charset=utf-8")
 @ResponseBody // 응답 객체 body에 담기라고 해줘야 forward가 제대로 됨

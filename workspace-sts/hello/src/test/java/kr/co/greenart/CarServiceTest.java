@@ -22,6 +22,7 @@ import kr.co.greenart.model.car.CarService;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = RootConfig.class)
 @Transactional
+// @TransactionConfiguration(defaultRollback = true) << 스프링 4버전 이하
 public class CarServiceTest {
 	@Autowired
 	private CarService service;
