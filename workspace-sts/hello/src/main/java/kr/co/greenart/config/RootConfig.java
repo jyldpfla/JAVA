@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 // 객체 테스트하려면 객체가 있어야함 -> bean으로 등록하려면, 읽고 있는 RootConfig파일에 bean으로 등록하거나,
 // 컴포넌트 표시해두고 스캔해서 알아서 bean으로 등록되도록
 @EnableTransactionManagement // 트랜잭션 사용하기 위한 annotation -> 관리자 등록 필요(bean으로 등록)
+@EnableAspectJAutoProxy // 메소드 실행할때 aop 적용될 수 있도록 만들려고
 public class RootConfig {
 	@Value("${jdbc.drivername}") // 설정한 값들을 꺼내와서 사용하고 싶을 때 사용
 	// 중괄호 안 이름이 properties에 지정된 이름이어야 불러와짐
