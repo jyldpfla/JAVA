@@ -1,0 +1,30 @@
+220704 문제해결
+1. 등수 메소드 줄이기
+=> ranking[] 배열을 Collections.frequency 사용위해서 ArrayList로 변환
+
+2022.07.06 문제 해결
+1. 패널 창 출력 시 ranking을 출력하는 패널에 NullPointerException error 발생
+-> 왜?
+① ranking 출력하는 JLabel메소드에서 카드와 달리 ranking은 BuyPage에서 받아오는 이중 배열의 사이즈(개수)에 따라 ranking은 없는 경우가 있는데, 카드처럼 5개 다 만들어 두니까 출력이 안됨(값이 없으니까)
+=> ranking은 buyLottoNumList(BuyPage값에서 setter로 값 받아온 이중ArrayList)의 사이즈(개수)에 맞춰 JLabel 생성
+
+② 위와 같이 패널 생성도 없는 ranking값을 받는 JLabel(null)을 add하니까 nullPointerexception 바생
+=> 개수에 맞춰서 생성하도록 for문 새로 작성
+
+1-1. for문 따로 작성하니까 순서대로 읽다보니까 당첨 여부가 카드들 옆에 붙어서 나오는게 아니라 제일 마지막에 따로 출력돼서 레이아웃 깨짐
+=> 당첨 여부만 담는 패널 새로 만들어서 담고 boxlayout으로 세로 정렬 후 카드담은 패널과 당첨 여부 담는 패널을 담는 패널 만들어서 underLottoNum패널에 넣기
+-> 이렇게 하니까 간격이 안마자!!!
+
+2. 패널 창 여러 개 생성
+->  메인매니저에서 result패널 창이 2번째 구매부터 전 패널이 사라지지 않고, 계속해서 보여져서 remove메소드를 통해 지웠는데도 지워지지 않고 남아있음
+=> getpanel 전에 패널의 참조가 변경되면서, 참조가 달라서 패널이 삭제가 되지 않으므로 index 번호(2)로 remove하면 지워짐
+
+3. sameList 전회차 값 쌓임
+-> 전회차 값 쌓여있어서 sameList에서 더 이상 받을 수 없게 됨
+=> new로 초기화해서 전 값 삭제
+
+// 할 일 //
+세금
+관리자로또당첨번호메소드(키리스너)
+틀리면 카드 뒤집어지게
+당첨 금액 출력
