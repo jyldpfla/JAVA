@@ -18,4 +18,3 @@
 - model session은 실제 session과는 조금 다르게 돌아감!
 
 ● flashattribute ( FlashAttributeController.java, flashview.jsp
-
