@@ -35,6 +35,6 @@
 	-> 프로젝트 생성할 때 create 체크 없이 next하면 다양한 archetype중에서 고를 수 있음
 	- catalog : internal 에서 quickstart: 일반 java, webapp : servlet application 만들 때 사용 가능
 	-> 일반 java project 만들고, maven 프로젝트로 변경 가능 : 프로젝트 우클릭 - configure - convert to maven project - 생성하듯이 해주고 finish해주면 끝! 	+	lib대신 pom.xml에서 라이브러리 관리하므로, pom에서 설정(lib jar 지워도 됨) (라이브러리 검색한 같은데서 검색해서 복붙하면 됨)
-▶ MVC 패턴 - Model : 서비스를 통해 제공하고자하는 주제, View : 보여주는 화면, Controller : 제어
+▶ MVC 패턴 - Model : 서비스를 통해 제공하고자하는 주제, 정보나 메소드를 담고있는 객체 클래스(ex. 유저의 정보를 담고 있는 User.java), View : 보여주는 화면(jsp), Controller : 제어(handler, service)
 ▶ API, Application Programming Interface
 ▶ 레이어 : 여러 클래스를 만들어서 연결지어 이용하는 패턴 -> 객체의존성이 생김(연결을 위해 필드로 객체 선언해야함
