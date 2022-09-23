@@ -1,4 +1,4 @@
-package peson;
+package person;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
