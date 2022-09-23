@@ -1,4 +1,4 @@
-package peson;
+package person;
 
 public class PersonService {
 	// 사람정보에 대한 논리적인 흐름을 가진 객체로 만들기
