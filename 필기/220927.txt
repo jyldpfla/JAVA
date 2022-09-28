@@ -1,0 +1,3 @@
+● generic ( MyHolder, MyPair, Main )
+
+object클래스에 finalize 메소드 존재 -> GC가 해당 GC를 쓰레기로 판별하고 지우기 전에 나옴(인스턴스의 마지막에 나옴)
